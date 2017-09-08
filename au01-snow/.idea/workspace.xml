@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9059262d-da41-494f-a857-ee7edafb5b5d" name="Default" comment="Let it snow. Let it snow. Let it snow.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Testall.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Addition.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Allgemein.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Division.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Multiplikation.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_String.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Subtraktion.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Vergleich.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/Unit_Zusatz.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/bruch.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/environment.pickle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.doctrees/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/ajax-loader.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/comment-bright.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/comment-close.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/comment.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/down-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/file.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/minus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/up-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/objects.inv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/keybd_closed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/keybd_open.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/ServerController.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/ServerView.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/client.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/client/client.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/client/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/environment.pickle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/ipc/Game/ServerController.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/ipc/Game/ServerView.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/ipc/Game/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.doctrees/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/ajax-loader.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/comment-bright.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/comment-close.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/comment.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/down-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/file.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/minus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/up-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/objects.inv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/au01-snow.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/.idea/au02-tdd.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/bruch.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/Makefile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/.buildinfo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Testall.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Addition.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Allgemein.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Division.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Multiplikation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_String.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Subtraktion.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Vergleich.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/Unit_Zusatz.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_modules/bruch.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_modules/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Testall.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Addition.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Allgemein.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Division.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Multiplikation.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_String.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Subtraktion.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Vergleich.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/Unit_Zusatz.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/bruch.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_sources/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/alabaster.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/basic.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/custom.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/doctools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/jquery-3.1.0.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/pygments.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/searchtools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/underscore-1.3.1.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/underscore.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/_static/websupport.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/bruch.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/genindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/py-modindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/search.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/build/searchindex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/make.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/source/bruch.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/source/conf.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/docs/source/index.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_bruch_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Testall_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Addition_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Allgemein_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Division_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Multiplikation_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_String_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Subtraktion_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Vergleich_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_data_OneDrive_Schule_sew_Jg5_Aufgaben_au02-tdd_tests_Unit_Zusatz_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm__jb_runner_tools_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm__jb_unittest_runner_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm__jb_utils_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm_teamcity___init___py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm_teamcity_common_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm_teamcity_messages_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/_local_share_JetBrains_Toolbox_apps_PyCharm-P_ch-0_171_3780_115_helpers_pycharm_teamcity_unittestpy_py.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/coverage_html.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/jquery.debounce.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/jquery.hotkeys.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/jquery.isonscreen.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/jquery.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/jquery.tablesorter.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/status.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/coverage/style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/results/test_results.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Testall.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Addition.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Allgemein.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Division.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Multiplikation.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_String.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Subtraktion.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Vergleich.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au02-tdd/tests/Unit_Zusatz.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/.idea/au08-decorator.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/client.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/decorators.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/python_decorators.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au08-decorator/server.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/.idea/au09-ipcgame.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/client/client.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/Makefile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/.buildinfo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_modules/client/client.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_modules/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_modules/ipc/Game/ServerController.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_modules/ipc/Game/ServerView.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/ServerController.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/ServerView.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/client.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/client/client.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/client/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/ipc/Game/ServerController.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/ipc/Game/ServerView.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/ipc/Game/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_sources/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/alabaster.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/basic.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/custom.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/doctools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/jquery-3.1.0.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/pygments.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/searchtools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/underscore-1.3.1.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/underscore.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/_static/websupport.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/client.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/client/client.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/client/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/genindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/ipc/Game/ServerController.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/ipc/Game/ServerView.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/ipc/Game/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/py-modindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/search.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/build/searchindex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/make.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/client/client.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/client/modules.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/conf.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/index.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/ipc/Game/ServerController.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/ipc/Game/ServerView.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/docs/source/ipc/Game/modules.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/ipc/Game/ServerController.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/ipc/Game/ServerView.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/ipc/Game/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../au09-ipcgame/ipc/Game/server.ui" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/au01_snow$main.coverage" NAME="main Coverage Results" MODIFIED="1504863608257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="31" column="26" lean-forward="true" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/main.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="76" />
+    <option name="y" value="1" />
+    <option name="width" value="1910" />
+    <option name="height" value="1033" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="au01-snow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="au01-snow" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="au01-snow" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9059262d-da41-494f-a857-ee7edafb5b5d" name="Default" comment="" />
+      <created>1504854887756</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1504854887756</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add snowflake task">
+      <created>1504859769828</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1504859769828</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Let it snow. Let it snow. Let it snow.">
+      <created>1504863924390</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1504863924390</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1920" height="1038" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25453576" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3377193" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="Add snowflake task" />
+    <MESSAGE value="Let it snow. Let it snow. Let it snow." />
+    <option name="LAST_COMMIT_MESSAGE" value="Let it snow. Let it snow. Let it snow." />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="31" column="26" lean-forward="true" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

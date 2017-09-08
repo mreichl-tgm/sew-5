@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ipc.Game.ServerController &#8212; ipcgame 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ipc.Game.ServerController</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">PySide</span> <span class="k">import</span> <span class="n">QtCore</span> <span class="p">,</span> <span class="n">QtGui</span>
+
+<span class="kn">from</span> <span class="nn">ipc.Game</span> <span class="k">import</span> <span class="n">ServerView</span>
+
+<div class="viewcode-block" id="FieldType"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.FieldType">[docs]</a><span class="k">class</span> <span class="nc">FieldType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">GRASS</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">CASTLE1</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">CASTLE2</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">FOREST</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">MOUNTAIN</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">LAKE</span> <span class="o">=</span> <span class="mi">5</span></div>
+
+<div class="viewcode-block" id="CommandType"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.CommandType">[docs]</a><span class="k">class</span> <span class="nc">CommandType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">UP</span> <span class="o">=</span> <span class="s2">&quot;up&quot;</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+    <span class="n">DOWN</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span></div>
+
+
+<div class="viewcode-block" id="ServerController"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController">[docs]</a><span class="k">class</span> <span class="nc">ServerController</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Der Spieleserver</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">errorsignal</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Signal</span><span class="p">((</span><span class="nb">str</span><span class="p">,))</span>
+    <span class="n">msgsignal</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">pCastle1</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPalette</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
+    <span class="n">pCastle2</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPalette</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+    <span class="n">pGrass</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPalette</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+    <span class="n">pForest</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPalette</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">darkGreen</span><span class="p">)</span>
+    <span class="n">pLake</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPalette</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">darkBlue</span><span class="p">)</span>
+    <span class="n">pMountain</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPalette</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">darkGray</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new controller with a MyView object</span>
+<span class="sd">        using the MVC pattern</span>
+
+<span class="sd">        :param parent:</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span> <span class="o">=</span> <span class="n">ServerView</span><span class="o">.</span><span class="n">Ui_Form</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listening</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnListen</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind_and_listen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnShuffle</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup_game</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">errorsignal</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">showError</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msgsignal</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_map</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ServerController.setup_game"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.setup_game">[docs]</a>    <span class="k">def</span> <span class="nf">setup_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erzeugt ein neues Spiel und mischt die Felder durch.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Alle Felder auf &quot;Gras&quot; Setzen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span><span class="p">)</span>
+
+        <span class="c1"># Burg und Startposition von Spieler 1 setzen</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player1bomb</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Burg und Startposition von Spieler 2 setzen</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player2bomb</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Zufällig 2-10 Teiche platzieren</span>
+        <span class="n">lakes</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">lakes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">xr</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+            <span class="n">xl</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+            <span class="n">yu</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+            <span class="n">yd</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+            <span class="n">area</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xl</span><span class="p">][</span><span class="n">yu</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">yu</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xr</span><span class="p">][</span><span class="n">yu</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xl</span><span class="p">][</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xr</span><span class="p">][</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xl</span><span class="p">][</span><span class="n">yd</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">yd</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xr</span><span class="p">][</span><span class="n">yd</span><span class="p">]]</span>
+            <span class="c1"># Es dürfen keine zwei Teiche nebeneinander sein</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAKE</span> <span class="ow">in</span> <span class="n">area</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAKE</span>
+                <span class="n">lakes</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># Zufällig 10 bis 20 Waldstücke erstellen</span>
+        <span class="n">forests</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">forests</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">FOREST</span>
+                <span class="n">forests</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># 3 bis 6 Berge erstellen</span>
+        <span class="n">mountains</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">mountains</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MOUNTAIN</span>
+                <span class="n">mountains</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># Die Schriftrolle platzieren</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">xr</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+            <span class="n">xl</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+            <span class="n">yu</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+            <span class="n">yd</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+            <span class="n">area</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xl</span><span class="p">][</span><span class="n">yu</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">yu</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xr</span><span class="p">][</span><span class="n">yu</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xl</span><span class="p">][</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xr</span><span class="p">][</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xl</span><span class="p">][</span><span class="n">yd</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">yd</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">xr</span><span class="p">][</span><span class="n">yd</span><span class="p">]]</span>
+            <span class="c1"># Die Schriftrolle darf nicht neben einer Burg sein</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">!=</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAKE</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE1</span> <span class="ow">in</span> <span class="n">area</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE2</span> <span class="ow">in</span> <span class="n">area</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw_map</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ServerController.draw_map"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.draw_map">[docs]</a>    <span class="k">def</span> <span class="nf">draw_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zeichnet die Felder in die entsprechenden Widgets.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;bomblabel&#39;</span><span class="p">):</span>
+            <span class="c1"># Beschriftungen fuer Spieler bzw. Schriftrolle zuruecksetzen</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bomblabel</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player1label</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player2label</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+                <span class="c1"># Jeweiliges Widget ermitteln</span>
+                <span class="n">widget_number</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="p">,</span> <span class="s2">&quot;widget_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">widget_number</span><span class="p">))</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">setAutoFillBackground</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="c1"># Hintergrundfarbe entsprechend setzen</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">setPalette</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pGrass</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">FOREST</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">setPalette</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pForest</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAKE</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">setPalette</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pLake</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MOUNTAIN</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">setPalette</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pMountain</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE1</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">setPalette</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pCastle1</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE2</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">setPalette</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pCastle2</span><span class="p">)</span>
+
+                <span class="c1"># Schriftrolle bzw. Spieler in Widget ggf. schreiben</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">bomblabel</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">bomblabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&lt;span style=</span><span class="se">\&quot;</span><span class="s2">font-size:18pt; font-weight:600; color:#cc0000;</span><span class="se">\&quot;</span><span class="s2">&gt;XX&lt;/span&gt;&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">bomblabel</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1label</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&lt;span style=</span><span class="se">\&quot;</span><span class="s2">font-size:18pt; font-weight:600; color:#cccc00;</span><span class="se">\&quot;</span><span class="s2">&gt;P1&lt;/span&gt;&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1label</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2label</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&lt;span style=</span><span class="se">\&quot;</span><span class="s2">font-size:18pt; font-weight:600; color:#cccc00;</span><span class="se">\&quot;</span><span class="s2">&gt;P2&lt;/span&gt;&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2label</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ServerController.bind_and_listen"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.bind_and_listen">[docs]</a>    <span class="k">def</span> <span class="nf">bind_and_listen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erzeugt einen neuen Thread, welcher auf eingehende</span>
+<span class="sd">        Verbindungen wartet.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">listening</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">linePort</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">listening</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnListen</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Stop&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnShuffle</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__listen_for_clients</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">showError</span><span class="p">(</span><span class="s2">&quot;Bitte geben Sie einen gültigen Port ein!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;client1&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;client2&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">listClients</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">__listen_for_clients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wartet auf eingehende Verbindungen und startet ggf. das Spiel.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="p">:</span>
+                <span class="c1"># Binding erstellen und auf localhost am angegebenen Port horchen</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+                <span class="c1"># Eingehende Verbindungen ab jetzt annehmen (mit maximal 5 pending connections)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Auf client warten...&quot;</span><span class="p">)</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="p">:</span>
+                    <span class="c1"># Name von Spieler 1 eingeben und mit &quot;OK&quot; bestaetigen</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">listClients</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="p">:</span>
+                        <span class="c1"># Name von Spieler 2 eingeben und mit &quot;OK&quot; bestaetigen</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">listClients</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">game_loop</span><span class="p">()</span>
+                <span class="c1"># Spiel zuende</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">listClients</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnListen</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Listen&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnShuffle</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">listening</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnListen</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Listen&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">listening</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">myForm</span><span class="o">.</span><span class="n">btnShuffle</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="mi">10004</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">errorsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Socket error: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ServerController.field_message"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.field_message">[docs]</a>    <span class="k">def</span> <span class="nf">field_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erzeugt die Nachricht, welche alle sichtabren</span>
+<span class="sd">        Felder des Spielers anzeigt.</span>
+<span class="sd">        :param position: Position des jeweiligen Spielers</span>
+<span class="sd">        :type position: (int, int)</span>
+<span class="sd">        :return: Nachricht mit sichtbaren Felder</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sight</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MOUNTAIN</span><span class="p">:</span>
+            <span class="n">sight</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span><span class="p">:</span>
+            <span class="n">sight</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="n">xu</span> <span class="o">=</span> <span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">sight</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+        <span class="n">xd</span> <span class="o">=</span> <span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">sight</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+        <span class="n">yl</span> <span class="o">=</span> <span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">sight</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+        <span class="n">yr</span> <span class="o">=</span> <span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">sight</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">xu</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">yl</span>
+        <span class="n">abort</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">GRASS</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;G&#39;</span>
+            <span class="k">elif</span> <span class="n">f</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAKE</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;L&#39;</span>
+            <span class="k">elif</span> <span class="n">f</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">FOREST</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;F&#39;</span>
+            <span class="k">elif</span> <span class="n">f</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MOUNTAIN</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;M&#39;</span>
+            <span class="k">elif</span> <span class="n">f</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE1</span> <span class="ow">or</span> <span class="n">f</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE2</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;C&#39;</span>
+
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;B&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">xd</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="n">yr</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">yr</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">yl</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+<div class="viewcode-block" id="ServerController.game_loop"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.game_loop">[docs]</a>    <span class="k">def</span> <span class="nf">game_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bildet die Spielelogik ab und wickelt die Zuege ab.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+        <span class="n">skip1</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">skip2</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="c1"># ggf. Zug ueberspringen, falls Berg bestiegen wurde</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">skip1</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">UP</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">DOWN</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">RIGHT</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">0</span><span class="p">],(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">LEFT</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">0</span><span class="p">],(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MOUNTAIN</span><span class="p">:</span>
+                    <span class="n">skip1</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">skip1</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">skip2</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">UP</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">DOWN</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">RIGHT</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">0</span><span class="p">],(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">CommandType</span><span class="o">.</span><span class="n">LEFT</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">0</span><span class="p">],(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">MOUNTAIN</span><span class="p">:</span>
+                    <span class="n">skip2</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">skip2</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># Pruefen, ob Spieler 1 oder Spieler 2 gewonnen bzw. verloren haben</span>
+            <span class="n">check1</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">check2</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">check1</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">check2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">check1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">check2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="c1"># Unentschieden (beide gewonnen oder beide verloren)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;Draw&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;Draw&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">msgsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">check1</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">check2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Spieler 1 hat gewonnen</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;You win&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;You lose&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">msgsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">check2</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">check1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Spieler 2 hat gewonnen</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;You lose&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;You win&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">msgsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Nachricht sichtbarer Felder schicken</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">skip1</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player1</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">skip2</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">field_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">msgsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ServerController.check_position"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.check_position">[docs]</a>    <span class="k">def</span> <span class="nf">check_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">position</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prueft die aktuelle Position und ermittelt, ob das</span>
+<span class="sd">        Spiel gewonnen oder verloren wurde.</span>
+<span class="sd">        :param position: Position des Spielers</span>
+<span class="sd">        :type position: (int, int)</span>
+<span class="sd">        :param number: Spielernummer (1 oder 2)</span>
+<span class="sd">        :type number: int</span>
+<span class="sd">        :return: -1 (verloren), 1 (gewonnen), 0 (weder noch)</span>
+<span class="sd">        :rtype int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">LAKE</span><span class="p">:</span>
+            <span class="c1"># In See gefallen</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE2</span> <span class="ow">and</span> <span class="n">number</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">player1bomb</span><span class="p">:</span>
+            <span class="c1"># Gegnerische Basis mit Schriftrolle erreicht</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">FieldType</span><span class="o">.</span><span class="n">CASTLE1</span> <span class="ow">and</span> <span class="n">number</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">player2bomb</span><span class="p">:</span>
+            <span class="c1"># Gegnerische Basis mit Schriftrolle erreicht</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">player1bomb</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Player 1 got the scroll&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">player2bomb</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Player 2 got the scroll&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="ServerController.showError"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.showError">[docs]</a>    <span class="k">def</span> <span class="nf">showError</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zeigt Fehlermeldungen an.</span>
+<span class="sd">        :param message: Anzuzeigende Nachricht.</span>
+<span class="sd">        :type message: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Simple Chat Client&quot;</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Critical</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ServerController.closeEvent"><a class="viewcode-back" href="../../../ipc/Game/ServerController.html#ipc.Game.ServerController.ServerController.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reagiert auf das Close-Event und beendet offene Verbindungen.</span>
+<span class="sd">        :param event:</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">closing</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;serversocket&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">serversocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;client1&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;client2&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client2</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div></div>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">ServerController</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Lorenz Breier.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>501</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Server</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget_101" native="true">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>50</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Port:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="linePort"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnListen">
+        <property name="text">
+         <string>Listen</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="listClients">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="7" column="3">
+      <widget class="QWidget" name="widget_74" native="true"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QWidget" name="widget_2" native="true"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QWidget" name="widget_71" native="true"/>
+     </item>
+     <item row="6" column="7">
+      <widget class="QWidget" name="widget_68" native="true"/>
+     </item>
+     <item row="7" column="2">
+      <widget class="QWidget" name="widget_73" native="true"/>
+     </item>
+     <item row="6" column="5">
+      <widget class="QWidget" name="widget_66" native="true"/>
+     </item>
+     <item row="6" column="8">
+      <widget class="QWidget" name="widget_69" native="true"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QWidget" name="widget_1" native="true"/>
+     </item>
+     <item row="8" column="6">
+      <widget class="QWidget" name="widget_87" native="true"/>
+     </item>
+     <item row="8" column="7">
+      <widget class="QWidget" name="widget_88" native="true"/>
+     </item>
+     <item row="8" column="8">
+      <widget class="QWidget" name="widget_89" native="true"/>
+     </item>
+     <item row="9" column="6">
+      <widget class="QWidget" name="widget_97" native="true"/>
+     </item>
+     <item row="9" column="7">
+      <widget class="QWidget" name="widget_98" native="true"/>
+     </item>
+     <item row="9" column="5">
+      <widget class="QWidget" name="widget_96" native="true"/>
+     </item>
+     <item row="9" column="4">
+      <widget class="QWidget" name="widget_95" native="true"/>
+     </item>
+     <item row="9" column="3">
+      <widget class="QWidget" name="widget_94" native="true"/>
+     </item>
+     <item row="8" column="5">
+      <widget class="QWidget" name="widget_86" native="true"/>
+     </item>
+     <item row="8" column="2">
+      <widget class="QWidget" name="widget_83" native="true"/>
+     </item>
+     <item row="8" column="9">
+      <widget class="QWidget" name="widget_90" native="true"/>
+     </item>
+     <item row="8" column="3">
+      <widget class="QWidget" name="widget_84" native="true"/>
+     </item>
+     <item row="8" column="4">
+      <widget class="QWidget" name="widget_85" native="true"/>
+     </item>
+     <item row="7" column="8">
+      <widget class="QWidget" name="widget_79" native="true"/>
+     </item>
+     <item row="7" column="9">
+      <widget class="QWidget" name="widget_80" native="true"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QWidget" name="widget_81" native="true"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QWidget" name="widget_91" native="true"/>
+     </item>
+     <item row="9" column="2">
+      <widget class="QWidget" name="widget_93" native="true"/>
+     </item>
+     <item row="9" column="8">
+      <widget class="QWidget" name="widget_99" native="true"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QWidget" name="widget_82" native="true"/>
+     </item>
+     <item row="7" column="7">
+      <widget class="QWidget" name="widget_78" native="true"/>
+     </item>
+     <item row="7" column="4">
+      <widget class="QWidget" name="widget_75" native="true"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QWidget" name="widget_92" native="true"/>
+     </item>
+     <item row="7" column="5">
+      <widget class="QWidget" name="widget_76" native="true"/>
+     </item>
+     <item row="7" column="6">
+      <widget class="QWidget" name="widget_77" native="true"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QWidget" name="widget_52" native="true"/>
+     </item>
+     <item row="5" column="2">
+      <widget class="QWidget" name="widget_53" native="true"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QWidget" name="widget_41" native="true"/>
+     </item>
+     <item row="5" column="9">
+      <widget class="QWidget" name="widget_60" native="true"/>
+     </item>
+     <item row="4" column="6">
+      <widget class="QWidget" name="widget_47" native="true"/>
+     </item>
+     <item row="5" column="5">
+      <widget class="QWidget" name="widget_56" native="true"/>
+     </item>
+     <item row="6" column="2">
+      <widget class="QWidget" name="widget_63" native="true"/>
+     </item>
+     <item row="3" column="7">
+      <widget class="QWidget" name="widget_38" native="true"/>
+     </item>
+     <item row="3" column="5">
+      <widget class="QWidget" name="widget_36" native="true"/>
+     </item>
+     <item row="4" column="7">
+      <widget class="QWidget" name="widget_48" native="true"/>
+     </item>
+     <item row="5" column="3">
+      <widget class="QWidget" name="widget_54" native="true"/>
+     </item>
+     <item row="5" column="6">
+      <widget class="QWidget" name="widget_57" native="true"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QWidget" name="widget_51" native="true"/>
+     </item>
+     <item row="4" column="4">
+      <widget class="QWidget" name="widget_45" native="true"/>
+     </item>
+     <item row="5" column="7">
+      <widget class="QWidget" name="widget_58" native="true"/>
+     </item>
+     <item row="6" column="4">
+      <widget class="QWidget" name="widget_65" native="true"/>
+     </item>
+     <item row="4" column="3">
+      <widget class="QWidget" name="widget_44" native="true"/>
+     </item>
+     <item row="3" column="6">
+      <widget class="QWidget" name="widget_37" native="true"/>
+     </item>
+     <item row="5" column="4">
+      <widget class="QWidget" name="widget_55" native="true"/>
+     </item>
+     <item row="5" column="8">
+      <widget class="QWidget" name="widget_59" native="true"/>
+     </item>
+     <item row="3" column="9">
+      <widget class="QWidget" name="widget_40" native="true"/>
+     </item>
+     <item row="4" column="8">
+      <widget class="QWidget" name="widget_49" native="true"/>
+     </item>
+     <item row="3" column="4">
+      <widget class="QWidget" name="widget_35" native="true"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QWidget" name="widget_72" native="true"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QWidget" name="widget_62" native="true"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QWidget" name="widget_42" native="true"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QWidget" name="widget_61" native="true"/>
+     </item>
+     <item row="4" column="5">
+      <widget class="QWidget" name="widget_46" native="true"/>
+     </item>
+     <item row="4" column="2">
+      <widget class="QWidget" name="widget_43" native="true"/>
+     </item>
+     <item row="6" column="3">
+      <widget class="QWidget" name="widget_64" native="true"/>
+     </item>
+     <item row="6" column="9">
+      <widget class="QWidget" name="widget_70" native="true"/>
+     </item>
+     <item row="4" column="9">
+      <widget class="QWidget" name="widget_50" native="true"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QWidget" name="widget_32" native="true"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QWidget" name="widget_12" native="true"/>
+     </item>
+     <item row="1" column="8">
+      <widget class="QWidget" name="widget_19" native="true"/>
+     </item>
+     <item row="2" column="3">
+      <widget class="QWidget" name="widget_24" native="true"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QWidget" name="widget_21" native="true"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QWidget" name="widget_22" native="true"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QWidget" name="widget_3" native="true"/>
+     </item>
+     <item row="2" column="8">
+      <widget class="QWidget" name="widget_29" native="true"/>
+     </item>
+     <item row="0" column="3">
+      <widget class="QWidget" name="widget_4" native="true"/>
+     </item>
+     <item row="0" column="9">
+      <widget class="QWidget" name="widget_10" native="true"/>
+     </item>
+     <item row="6" column="6">
+      <widget class="QWidget" name="widget_67" native="true"/>
+     </item>
+     <item row="0" column="4">
+      <widget class="QWidget" name="widget_5" native="true"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QWidget" name="widget_14" native="true"/>
+     </item>
+     <item row="2" column="4">
+      <widget class="QWidget" name="widget_25" native="true"/>
+     </item>
+     <item row="0" column="5">
+      <widget class="QWidget" name="widget_6" native="true"/>
+     </item>
+     <item row="1" column="5">
+      <widget class="QWidget" name="widget_16" native="true"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QWidget" name="widget_13" native="true"/>
+     </item>
+     <item row="1" column="6">
+      <widget class="QWidget" name="widget_17" native="true"/>
+     </item>
+     <item row="0" column="8">
+      <widget class="QWidget" name="widget_9" native="true"/>
+     </item>
+     <item row="1" column="7">
+      <widget class="QWidget" name="widget_18" native="true"/>
+     </item>
+     <item row="0" column="7">
+      <widget class="QWidget" name="widget_8" native="true"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QWidget" name="widget_11" native="true"/>
+     </item>
+     <item row="2" column="5">
+      <widget class="QWidget" name="widget_26" native="true"/>
+     </item>
+     <item row="1" column="4">
+      <widget class="QWidget" name="widget_15" native="true"/>
+     </item>
+     <item row="1" column="9">
+      <widget class="QWidget" name="widget_20" native="true"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QWidget" name="widget_23" native="true"/>
+     </item>
+     <item row="0" column="6">
+      <widget class="QWidget" name="widget_7" native="true"/>
+     </item>
+     <item row="3" column="3">
+      <widget class="QWidget" name="widget_34" native="true"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QWidget" name="widget_31" native="true"/>
+     </item>
+     <item row="2" column="6">
+      <widget class="QWidget" name="widget_27" native="true"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QWidget" name="widget_33" native="true"/>
+     </item>
+     <item row="2" column="9">
+      <widget class="QWidget" name="widget_30" native="true"/>
+     </item>
+     <item row="2" column="7">
+      <widget class="QWidget" name="widget_28" native="true"/>
+     </item>
+     <item row="3" column="8">
+      <widget class="QWidget" name="widget_39" native="true"/>
+     </item>
+     <item row="9" column="9">
+      <widget class="QWidget" name="widget_100" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="btnShuffle">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Shuffe Map</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+     <zorder>btnShuffle</zorder>
+     <zorder>btnShuffle</zorder>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
