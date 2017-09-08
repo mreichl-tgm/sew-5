@@ -1,7 +1,0 @@
-Unit_Vergleich module
-=====================
-
-.. automodule:: Unit_Vergleich
-    :members:
-    :undoc-members:
-    :show-inheritance:
