@@ -31,4 +31,19 @@ object PersonRepository : IRepository<Person> {
         entityManager.close()
         return items
     }
+
+    override fun remove(id: Long): Boolean {
+        val entityManager = PersistenceUtil.getEntityManager()
+
+        try {
+            entityManager.transaction.begin()
+            entityManager.remove(entityManager.find(Person::class.java, id))
+            entityManager.transaction.commit()
+        } catch (e: Exception) {
+            return false
+        }
+
+        entityManager.close()
+        return true
+    }
 }

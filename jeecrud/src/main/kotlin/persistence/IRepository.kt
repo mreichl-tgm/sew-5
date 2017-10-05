@@ -33,6 +33,8 @@ interface IRepository<T> {
         return true
     }
 
+    fun remove(id: Long): Boolean
+
     fun remove(item: T): Boolean {
         val entityManager = PersistenceUtil.getEntityManager()
 

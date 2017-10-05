@@ -4,15 +4,17 @@ import model.Person
 import persistence.PersonRepository
 import java.io.Serializable
 import javax.faces.bean.ManagedBean
-import javax.faces.bean.ViewScoped
 
 @ManagedBean
-@ViewScoped
 class PersonService : Serializable {
     var id: Long = 0
     var firstName: String = ""
     var lastName: String = ""
     var age: Int = 0
+
+    fun find(): Person? {
+        return PersonRepository.find(id)
+    }
 
     fun find(id: Long): Person? {
         return PersonRepository.find(id)
@@ -20,10 +22,6 @@ class PersonService : Serializable {
 
     fun findAll(): List<Person> {
         return PersonRepository.findAll()
-    }
-
-    fun persist(item: Person): Boolean {
-        return PersonRepository.persist(item)
     }
 
     fun add(): Boolean {
@@ -49,14 +47,9 @@ class PersonService : Serializable {
     fun update(): Boolean {
         val item = PersonRepository.find(id) ?: return false
 
-        item.firstName = firstName
-        item.lastName = lastName
-        item.age = age
-
-        id = 0
-        firstName = ""
-        lastName = ""
-        age = 0
+        if (firstName != "") item.firstName = firstName
+        if (lastName != "") item.lastName = lastName
+        if (age > 0) item.age = age
 
         return PersonRepository.merge(item)
     }
@@ -73,5 +66,9 @@ class PersonService : Serializable {
         if (age != null) item.age = age
 
         return PersonRepository.merge(item)
+    }
+
+    fun remove(): Boolean {
+        return PersonRepository.remove(id)
     }
 }

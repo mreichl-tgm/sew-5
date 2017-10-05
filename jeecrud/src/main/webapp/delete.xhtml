@@ -6,11 +6,11 @@
       xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
 <h:head>
-    <title>Jee Crud</title>
+    <title>Jee Crud - Delete</title>
 </h:head>
 
 <h:body>
-    <p:tabMenu activeIndex="0">
+    <p:tabMenu activeIndex="4">
         <p:menuitem value="Index" outcome="index.xhtml">
             <f:param name="i" value="0"/>
         </p:menuitem>
@@ -28,9 +28,19 @@
         </p:menuitem>
     </p:tabMenu>
 
-    <p:panel>
-        <h1>Welcome to Jee Crud</h1>
-        <p>SEW 5AHITM 1718 - A03: JEE CRUD-Functionality</p>
-    </p:panel>
+    <h:form>
+        <p:panel>
+            <p:messages id="remove-messages" showDetail="true" autoUpdate="true" closable="true"/>
+            <p:tooltip/>
+
+            <h:panelGrid columns="3" cellspacing="5">
+                <p:outputLabel for="uf-id" value="Id"/>
+                <p:inputText id="uf-id" title="Id" required="true" value="#{personService.id}"/>
+                <p:message for="uf-id"/>
+            </h:panelGrid>
+            <br/>
+            <p:commandButton value="Submit" action="#{personService.remove}"/>
+        </p:panel>
+    </h:form>
 </h:body>
 </html>

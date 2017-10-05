@@ -6,11 +6,11 @@
       xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
 <h:head>
-    <title>Jee Crud</title>
+    <title>Jee Crud - Read</title>
 </h:head>
 
 <h:body>
-    <p:tabMenu activeIndex="0">
+    <p:tabMenu activeIndex="1">
         <p:menuitem value="Index" outcome="index.xhtml">
             <f:param name="i" value="0"/>
         </p:menuitem>
@@ -29,8 +29,20 @@
     </p:tabMenu>
 
     <p:panel>
-        <h1>Welcome to Jee Crud</h1>
-        <p>SEW 5AHITM 1718 - A03: JEE CRUD-Functionality</p>
+        <p:dataTable var="person" value="#{personService.findAll()}">
+            <p:column id="pid" sortable="true" headerText="Id" sortBy="#{person.id}">
+                <h:outputText value="#{person.id}"/>
+            </p:column>
+            <p:column id="pfn" sortable="true" headerText="Firstname" sortBy="#{person.firstName}">
+                <h:outputText value="#{person.firstName}"/>
+            </p:column>
+            <p:column id="pln" sortable="true" headerText="Lastname" sortBy="#{person.lastName}">
+                <h:outputText value="#{person.lastName}"/>
+            </p:column>
+            <p:column id="pag" sortable="true" headerText="Age" sortBy="#{person.age}">
+                <h:outputText value="#{person.age}"/>
+            </p:column>
+        </p:dataTable>
     </p:panel>
 </h:body>
 </html>

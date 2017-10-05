@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Jee Crud - Create</title>
+</h:head>
+
+<h:body>
+    <p:tabMenu activeIndex="2">
+        <p:menuitem value="Index" outcome="index.xhtml">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+        <p:menuitem value="Read" outcome="read.xhtml">
+            <f:param name="i" value="1"/>
+        </p:menuitem>
+        <p:menuitem value="Create" outcome="create.xhtml">
+            <f:param name="i" value="2"/>
+        </p:menuitem>
+        <p:menuitem value="Update" outcome="update.xhtml">
+            <f:param name="i" value="3"/>
+        </p:menuitem>
+        <p:menuitem value="Delete" outcome="delete.xhtml">
+            <f:param name="i" value="4"/>
+        </p:menuitem>
+    </p:tabMenu>
+
+    <h:form>
+        <p:panel>
+            <p:messages id="create-messages" showDetail="true" autoUpdate="true" closable="true"/>
+            <p:tooltip/>
+
+            <h:panelGrid columns="3" cellspacing="5">
+                <p:outputLabel for="cf-fn" value="Firstname"/>
+                <p:inputText id="cf-fn" title="Firstname" required="true" value="#{personService.firstName}"/>
+                <p:message for="cf-fn"/>
+
+                <p:outputLabel for="cf-ln" value="Lastname"/>
+                <p:inputText id="cf-ln" title="Lastname" required="true" value="#{personService.lastName}"/>
+                <p:message for="cf-ln"/>
+
+                <p:outputLabel for="cf-ag" value="Age"/>
+                <p:inputNumber id="cf-ag" decimalPlaces="0" minValue="1" title="Age" value="#{personService.age}"/>
+                <p:message for="cf-ag"/>
+            </h:panelGrid>
+            <br/>
+            <p:commandButton value="Submit" action="#{personService.add}"/>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
