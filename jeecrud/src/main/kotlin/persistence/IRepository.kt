@@ -18,6 +18,21 @@ interface IRepository<T> {
         return true
     }
 
+    fun merge(item: T): Boolean {
+        val entityManager = PersistenceUtil.getEntityManager()
+
+        try {
+            entityManager.transaction.begin()
+            entityManager.merge(item)
+            entityManager.transaction.commit()
+        } catch (e: Exception) {
+            return false
+        }
+
+        entityManager.close()
+        return true
+    }
+
     fun remove(item: T): Boolean {
         val entityManager = PersistenceUtil.getEntityManager()
 

@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
 <h:head>
@@ -9,34 +10,90 @@
 </h:head>
 
 <h:body>
-    <h:form id="form">
-        <p:tabView>
-            <p:tab title="Index">
-                <h1>Welcome to Jee Crud</h1>
-                <p>SEW 5AHITM 1718 - A03: JEE CRUD-Functionality</p>
-            </p:tab>
-            <p:tab title="Read">
-                <h:form>
-                    <p:dataTable var="person" value="#{personService.findAll()}">
-                        <p:column id="pid" sortable="true" headerText="Id" sortBy="#{person.id}">
-                            <h:outputText value="#{person.id}"/>
-                        </p:column>
-                        <p:column id="pfn" sortable="true" headerText="Firstname" sortBy="#{person.firstName}">
-                            <h:outputText value="#{person.firstName}"/>
-                        </p:column>
-                        <p:column id="pln" sortable="true" headerText="Lastname" sortBy="#{person.lastName}">
-                            <h:outputText value="#{person.lastName}"/>
-                        </p:column>
-                        <p:column id="pag" sortable="true" headerText="Age" sortBy="#{person.age}">
-                            <h:outputText value="#{person.age}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </p:tab>
-            <p:tab title="Create"></p:tab>
-            <p:tab title="Update"></p:tab>
-            <p:tab title="Delete"></p:tab>
-        </p:tabView>
-    </h:form>
+    <p:tabMenu activeIndex="#{param.i}">
+        <p:menuitem value="Index" outcome="index.xhtml" icon="ui-icon-star">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+        <p:tab title="Index">
+            <h1>Welcome to Jee Crud</h1>
+            <p>SEW 5AHITM 1718 - A03: JEE CRUD-Functionality</p>
+        </p:tab>
+        <p:tab title="Read">
+            <p:dataTable var="person" value="#{personService.findAll()}">
+                <p:column id="pid" sortable="true" headerText="Id" sortBy="#{person.id}">
+                    <h:outputText value="#{person.id}"/>
+                </p:column>
+                <p:column id="pfn" sortable="true" headerText="Firstname" sortBy="#{person.firstName}">
+                    <h:outputText value="#{person.firstName}"/>
+                </p:column>
+                <p:column id="pln" sortable="true" headerText="Lastname" sortBy="#{person.lastName}">
+                    <h:outputText value="#{person.lastName}"/>
+                </p:column>
+                <p:column id="pag" sortable="true" headerText="Age" sortBy="#{person.age}">
+                    <h:outputText value="#{person.age}"/>
+                </p:column>
+            </p:dataTable>
+        </p:tab>
+
+        <p:tab title="Create">
+            <h:form id="create-form">
+                <p:panel>
+                    <p:messages id="create-messages" showDetail="true" autoUpdate="true" closable="true"/>
+                    <p:tooltip/>
+
+                    <h:panelGrid columns="3" cellspacing="5">
+                        <p:outputLabel for="cf-fn" value="Firstname"/>
+                        <p:inputText id="cf-fn" title="Firstname" required="true" value="#{personService.firstName}"/>
+                        <p:message for="cf-fn"/>
+
+                        <p:outputLabel for="cf-ln" value="Lastname"/>
+                        <p:inputText id="cf-ln" title="Lastname" required="true" value="#{personService.lastName}"/>
+                        <p:message for="cf-ln"/>
+
+                        <p:outputLabel for="cf-ag" value="Age"/>
+                        <p:inputNumber id="cf-ag" decimalPlaces="0" title="Age" value="#{personService.age}"/>
+                        <p:message for="cf-ag"/>
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton form="create-form" id="cf-submit" process="@all" value="Submit"
+                                     action="#{personService.add}"/>
+                </p:panel>
+            </h:form>
+        </p:tab>
+
+        <p:tab title="Update">
+            <h:form id="update-form">
+                <p:panel>
+                    <p:messages id="update-messages" showDetail="true" autoUpdate="true" closable="true"/>
+                    <p:tooltip/>
+
+                    <h:panelGrid columns="3" cellspacing="5">
+                        <p:outputLabel for="uf-id" value="Id"/>
+                        <p:inputText id="uf-id" label="Id" title="Id" required="true" value="#{personService.id}"/>
+                        <p:message for="uf-id"/>
+
+                        <p:outputLabel for="uf-fn" value="Firstname"/>
+                        <p:inputText id="uf-fn" title="Firstname" required="true" value="#{personService.firstName}"/>
+                        <p:message for="uf-fn"/>
+
+                        <p:outputLabel for="uf-ln" value="Lastname"/>
+                        <p:inputText id="uf-ln" required="true" value="#{personService.lastName}"/>
+                        <p:message for="uf-ln"/>
+
+                        <p:outputLabel for="uf-ag" value="Age"/>
+                        <p:inputNumber id="uf-ag" decimalPlaces="0" title="Age" required="true"
+                                       value="#{personService.age}"/>
+                        <p:message for="uf-ag"/>
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton id="uf-submit" value="Submit" action="#{personService.update}"/>
+                </p:panel>
+            </h:form>
+        </p:tab>
+
+        <p:tab title="Delete">
+
+        </p:tab>
+    </p:tabMenu>
 </h:body>
 </html>
