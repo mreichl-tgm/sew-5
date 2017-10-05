@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Jee Crud</title>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <p:tabView>
+            <p:tab title="Index">
+                <h1>Welcome to Jee Crud</h1>
+                <p>SEW 5AHITM 1718 - A03: JEE CRUD-Functionality</p>
+            </p:tab>
+            <p:tab title="Read">
+                <h:form>
+                    <p:dataTable var="person" value="#{personService.findAll()}">
+                        <p:column id="pid" sortable="true" headerText="Id" sortBy="#{person.id}">
+                            <h:outputText value="#{person.id}"/>
+                        </p:column>
+                        <p:column id="pfn" sortable="true" headerText="Firstname" sortBy="#{person.firstName}">
+                            <h:outputText value="#{person.firstName}"/>
+                        </p:column>
+                        <p:column id="pln" sortable="true" headerText="Lastname" sortBy="#{person.lastName}">
+                            <h:outputText value="#{person.lastName}"/>
+                        </p:column>
+                        <p:column id="pag" sortable="true" headerText="Age" sortBy="#{person.age}">
+                            <h:outputText value="#{person.age}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+            <p:tab title="Create"></p:tab>
+            <p:tab title="Update"></p:tab>
+            <p:tab title="Delete"></p:tab>
+        </p:tabView>
+    </h:form>
+</h:body>
 </html>
