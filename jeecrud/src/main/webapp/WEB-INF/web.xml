@@ -5,21 +5,21 @@
          id="WebApp_ID" version="3.0">
     <display-name>Jeecrud</display-name>
 
-    <listener>
+    <listener><!-- Configure Faces Listener -->
         <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
     </listener>
 
-    <welcome-file-list>
+    <welcome-file-list><!-- File to load when visiting the base url -->
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
-    <servlet>
+    <servlet><!-- Load the Faces servlet on startup -->
         <servlet-name>faces</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <servlet-mapping>
+    <servlet-mapping><!-- Map faces to .xhtml files -->
         <servlet-name>faces</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>

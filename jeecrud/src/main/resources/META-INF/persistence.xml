@@ -6,11 +6,12 @@
         <class>model.Person</class>
 
         <properties>
+            <!-- Database settings -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:jeecrud;DB_CLOSE_DELAY=-1;MVCC=TRUE"/>
             <property name="javax.persistence.jdbc.user" value=""/>
             <property name="javax.persistence.jdbc.password" value=""/>
-
+            <!-- SQL and DDL settings -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.hbm2ddl.import_files" value="META-INF/data.sql"/>
