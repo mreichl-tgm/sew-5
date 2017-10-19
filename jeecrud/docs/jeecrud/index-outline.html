@@ -1,0 +1,263 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><span class="identifier">jeecrud</span></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="alltypes/index.html"><span class="identifier">alltypes</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/index.html"><span class="keyword">interface </span><span class="identifier">IRepository</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/find.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$find(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/find-all.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">findAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/merge.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">merge</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$merge(persistence.IRepository.T)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/persist.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">persist</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$persist(persistence.IRepository.T)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/remove.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$remove(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/remove.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$remove(persistence.IRepository.T)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="util/-persistence-util/index.html"><span class="keyword">object </span><span class="identifier">PersistenceUtil</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="util/-persistence-util/get-entity-manager.html"><span class="keyword">fun </span><span class="identifier">getEntityManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">EntityManager</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="model/-person/index.html"><span class="identifier">@Entity</span> <span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Person</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="model/-person/-init-.html"><span class="identifier">Person</span><span class="symbol">(</span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/age">age</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/age.html"><span class="keyword">var </span><span class="identifier">age</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/first-name.html"><span class="keyword">var </span><span class="identifier">firstName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/id.html"><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/last-name.html"><span class="keyword">var </span><span class="identifier">lastName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/to-string.html"><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/index.html"><span class="keyword">object </span><span class="identifier">PersonRepository</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="persistence/-i-repository/index.html"><span class="identifier">IRepository</span></a><span class="symbol">&lt;</span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/find.html"><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="persistence.PersonRepository$find(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/find-all.html"><span class="keyword">fun </span><span class="identifier">findAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/remove.html"><span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="persistence.PersonRepository$remove(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="service/-person-service/index.html"><span class="keyword">class </span><span class="identifier">PersonService</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/Serializable.html"><span class="identifier">Serializable</span></a></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="service/-person-service/-init-.html"><span class="identifier">PersonService</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/add.html"><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/add.html"><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$add(model.Person)/item">item</span><span class="symbol">:</span>&nbsp;<a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/add.html"><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$add(kotlin.String, kotlin.String, kotlin.Int)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="service.PersonService$add(kotlin.String, kotlin.String, kotlin.Int)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="service.PersonService$add(kotlin.String, kotlin.String, kotlin.Int)/age">age</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/age.html"><span class="keyword">var </span><span class="identifier">age</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/find.html"><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/find.html"><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$find(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/find-all.html"><span class="keyword">fun </span><span class="identifier">findAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/first-name.html"><span class="keyword">var </span><span class="identifier">firstName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/id.html"><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/last-name.html"><span class="keyword">var </span><span class="identifier">lastName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/remove.html"><span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/update.html"><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/update.html"><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$update(model.Person)/item">item</span><span class="symbol">:</span>&nbsp;<a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/update.html"><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/age">age</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="model/index.html"><span class="keyword">package</span> <span class="identifier">model</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="model/-person/index.html"><span class="identifier">@Entity</span> <span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Person</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="model/-person/-init-.html"><span class="identifier">Person</span><span class="symbol">(</span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="model.Person$<init>(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/age">age</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/age.html"><span class="keyword">var </span><span class="identifier">age</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/first-name.html"><span class="keyword">var </span><span class="identifier">firstName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/id.html"><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/last-name.html"><span class="keyword">var </span><span class="identifier">lastName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="model/-person/to-string.html"><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="persistence/index.html"><span class="keyword">package</span> <span class="identifier">persistence</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/index.html"><span class="keyword">interface </span><span class="identifier">IRepository</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/find.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$find(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/find-all.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">findAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/merge.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">merge</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$merge(persistence.IRepository.T)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/persist.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">persist</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$persist(persistence.IRepository.T)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/remove.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$remove(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-i-repository/remove.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="persistence.IRepository$remove(persistence.IRepository.T)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/index.html"><span class="keyword">object </span><span class="identifier">PersonRepository</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="persistence/-i-repository/index.html"><span class="identifier">IRepository</span></a><span class="symbol">&lt;</span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/find.html"><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="persistence.PersonRepository$find(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/find-all.html"><span class="keyword">fun </span><span class="identifier">findAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="persistence/-person-repository/remove.html"><span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="persistence.PersonRepository$remove(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="service/index.html"><span class="keyword">package</span> <span class="identifier">service</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="service/-person-service/index.html"><span class="keyword">class </span><span class="identifier">PersonService</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/Serializable.html"><span class="identifier">Serializable</span></a></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="service/-person-service/-init-.html"><span class="identifier">PersonService</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/add.html"><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/add.html"><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$add(model.Person)/item">item</span><span class="symbol">:</span>&nbsp;<a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/add.html"><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$add(kotlin.String, kotlin.String, kotlin.Int)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="service.PersonService$add(kotlin.String, kotlin.String, kotlin.Int)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="service.PersonService$add(kotlin.String, kotlin.String, kotlin.Int)/age">age</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/age.html"><span class="keyword">var </span><span class="identifier">age</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/find.html"><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/find.html"><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$find(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/find-all.html"><span class="keyword">fun </span><span class="identifier">findAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/first-name.html"><span class="keyword">var </span><span class="identifier">firstName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/id.html"><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/last-name.html"><span class="keyword">var </span><span class="identifier">lastName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/remove.html"><span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/update.html"><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/update.html"><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$update(model.Person)/item">item</span><span class="symbol">:</span>&nbsp;<a href="model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="docs/jeecrud/index"><a href="service/-person-service/update.html"><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="service.PersonService$update(kotlin.Long, kotlin.String, kotlin.String, kotlin.Int)/age">age</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/jeecrud/index"><a href="util/index.html"><span class="keyword">package</span> <span class="identifier">util</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="util/-persistence-util/index.html"><span class="keyword">object </span><span class="identifier">PersistenceUtil</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/jeecrud/index"><a href="util/-persistence-util/get-entity-manager.html"><span class="keyword">fun </span><span class="identifier">getEntityManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">EntityManager</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
