@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui.ui'
 #
-# Created: Thu Oct 19 17:20:35 2017
+# Created: Thu Oct 19 20:05:38 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -45,6 +45,13 @@ class Ui_MainWindow(object):
         self.button_close = QtGui.QPushButton(self.centralwidget)
         self.button_close.setObjectName("button_close")
         self.form_layout.setWidget(4, QtGui.QFormLayout.FieldRole, self.button_close)
+        self.radio_json = QtGui.QRadioButton(self.centralwidget)
+        self.radio_json.setChecked(True)
+        self.radio_json.setObjectName("radio_json")
+        self.form_layout.setWidget(5, QtGui.QFormLayout.FieldRole, self.radio_json)
+        self.radio_xml = QtGui.QRadioButton(self.centralwidget)
+        self.radio_xml.setObjectName("radio_xml")
+        self.form_layout.setWidget(6, QtGui.QFormLayout.FieldRole, self.radio_xml)
         self.horizontalLayout_2.addLayout(self.form_layout)
         self.text_browser = QtGui.QTextBrowser(self.centralwidget)
         self.text_browser.setObjectName("text_browser")
@@ -74,3 +81,6 @@ class Ui_MainWindow(object):
             QtGui.QApplication.translate("MainWindow", "Reset", None, QtGui.QApplication.UnicodeUTF8))
         self.button_close.setText(
             QtGui.QApplication.translate("MainWindow", "Close", None, QtGui.QApplication.UnicodeUTF8))
+        self.radio_json.setText(
+            QtGui.QApplication.translate("MainWindow", "&Json", None, QtGui.QApplication.UnicodeUTF8))
+        self.radio_xml.setText(QtGui.QApplication.translate("MainWindow", "&Xml", None, QtGui.QApplication.UnicodeUTF8))
