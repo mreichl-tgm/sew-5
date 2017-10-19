@@ -1,17 +1,17 @@
 import sys
 
-from PySide import QtGui
+from PySide.QtGui import QApplication
 
-from src.control.control import Control
+from src.control import Control
 
 
-class App(QtGui.QApplication):
-    def __init__(self, response_type):
+class App(QApplication):
+    def __init__(self):
         """
         Initializes the app and creates an control instance
         """
-        super().__init__()
-        self.control = Control(response_type)
+        super().__init__(sys.argv)
+        self.control = Control()
 
         while self.control.view.isVisible():
             self.control.view.update()
@@ -21,7 +21,5 @@ class App(QtGui.QApplication):
 
 
 if __name__ == '__main__':
-    response_type = sys.argv[1]
-
-    app = App(response_type)
+    app = App()
     app.exec_()
