@@ -1,7 +1,6 @@
 import sys
 
 from PySide.QtGui import QApplication
-
 from src.control import Control
 
 

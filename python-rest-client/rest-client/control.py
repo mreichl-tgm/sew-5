@@ -44,8 +44,6 @@ class Control(QWidget):
                 "sensor": "false"}
 
             response = requests.get(url, params).json()
-            print(origin, destination)
-            print(str(response))
 
             origin_text = "Origin: " + response["routes"][0]["legs"][0]["start_address"]
             destination_text = "Destination: " + response["routes"][0]["legs"][0]["end_address"]
