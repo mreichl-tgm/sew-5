@@ -1,4 +1,5 @@
 import socket
+import sys
 import threading
 
 
@@ -51,7 +52,7 @@ class Server:
         """
         while 1:
             try:
-                data = sock.recv(4096).decode()
+                data = sock.decrypt()
                 if data:
                     # Client sends valid data
                     if data.upper() == "QUIT":
@@ -77,10 +78,20 @@ class Server:
         """
         for s in self.clients:
             if s != self.server_socket and s != sock:
-                s.send(msg.encode())
+                s.send(msg.encrypt())
 
     def close(self):
         """
         Public method to close the server
         """
         self.server_socket.close()
+
+
+if __name__ == "__main__":
+    if sys.argv[1]:
+        if sys.argv[2]:
+            Server(sys.argv[1], sys.argv[2])
+        else:
+            Server(sys.argv[1])
+    else:
+        Server()

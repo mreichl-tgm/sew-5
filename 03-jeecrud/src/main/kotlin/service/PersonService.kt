@@ -3,6 +3,7 @@ package service
 import model.Person
 import persistence.PersonRepository
 import java.io.Serializable
+import javax.faces.bean.ManagedBean
 
 
 /**

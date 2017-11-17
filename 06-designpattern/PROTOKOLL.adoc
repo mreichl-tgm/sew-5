@@ -1,0 +1,63 @@
+= A06: Design Patterns
+Markus Reichl <markus@re1.at>
+:revnumber: 1.0
+:revdate: 2017-11-17
+:revremark: Erster Entwurf
+:version-label!:
+
+Autor: {author}, Version: {revnumber}, {revdate}
+
+== Protokoll
+=== Vorbereitung
+1. Neues Projekt
+2. Einrichtung grundlegender Module (`__main__.py`, `client.py`, `encrypt.py`, `server.py`)
+3. Einrichtung grundlegender Klassen und Methoden (`Client`, `Èncrypt`, `EncryptBase64`, `EncryptAES`, `Server`)
+4. Vorbereitung des Decorator Pattern nach allgemeiner Definition (`EncryptDecorator`)
+
+=== Entwicklung
+1. Prototyp der Module client.py und server.py wurden auf Basis des Projekts https://github.com/mreichl-tgm/sew4/tree/master/06-pychat[06-pychat]
+2. Erweiterung der Module `client.py` und `server.py` um eigene `__main__` Methoden
+[source,python]
+----
+----
+3. Implementation von Base64 und AES Verschlüsselungen anhand des Decorator Pattern.
+[source,python]
+----
+import base64
+from Crypto.Cipher.AES import new, MODE_OPENPGP
+
+
+class EncryptDecorator:
+    def __init__(self, wrapper):
+        self.wrapper = wrapper
+
+    def encrypt(self):
+        return self.wrapper
+
+    def decrypt(self):
+        return self.wrapper
+
+
+class Base64(EncryptDecorator):
+    def __init__(self, wrapper):
+        super().__init__(wrapper)
+
+    def encrypt(self):
+        return base64.b64encode(self.wrapper.encrypt())
+
+    def decrypt(self):
+        return base64.b64decode(self.wrapper.decrypt())
+
+
+class AES(EncryptDecorator):
+    def __init__(self, wrapper):
+        super().__init__(wrapper)
+
+        self.SUITE = new("default", MODE_OPENPGP)
+
+    def encrypt(self):
+        self.wrapper = self.SUITE.encrypt(self.wrapper.encrypt())
+
+    def decrypt(self):
+        self.wrapper = self.SUITE.decrypt(self.wrapper.decrypt())
+----
