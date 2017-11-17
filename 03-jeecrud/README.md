@@ -2,12 +2,12 @@
 Mittels Gradle und Jetty, PrimeFaces, Hibernate and RDBMS .
 
 ### Inhalt:
-CREATE
-READ
-UPDATE
-DELETE
-Präsentation:
+* CREATE
+* READ
+* UPDATE
+* DELETE
 
+#### Präsentation:
 Der Client (Thin-Client) liest bzw. gibt Information der DB-Tabelle an
 1. Hauptmenü mit allen Untermenüs
 2. Untermenüs
