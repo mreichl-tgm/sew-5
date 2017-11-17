@@ -15,81 +15,80 @@ class Server:
         self.PORT = port
         self.clients = []
         # Create server socket, bind it to HOST and PORT, start listening
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_socket.bind((self.HOST, self.PORT))
-        self.server_socket.listen(10)
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server.bind((self.HOST, self.PORT))
+        self.server.listen(10)
         # Log success
         print("Server running on %s: %s)" % (self.HOST, self.PORT))
-
-    def run(self):
-        """
-        Accepts new connections and adds them to the client list
-        """
+        # Count connected sockets to set ids
         counter = 0
-
+        # Accept clients, add them to the client list and start a client_handler using their socket
         try:
             while 1:
                 print("Waiting...")
-                (client_socket, address) = self.server_socket.accept()
+                # Accept a client connection
+                (client_socket, address) = self.server.accept()
                 self.clients.append(client_socket)
-
+                # Start a new handler thread for each client
                 handler = threading.Thread(target=self.client_handler, args=(client_socket, counter))
                 handler.start()
-
-                self.broadcast(client_socket, "client%s is now online!" % counter)
-
+                # Log connected clients
+                print('Client connected at', address)
+                # Notify other clients
+                self.broadcast(client_socket, "Client%s is now online!" % counter)
+                # Increase counter
                 counter += 1
-
+        # Except a socket error which results in a closed server
         except socket.error:
-            print("Server was closed!")
-            return
+            # Close clients if possible
+            for client in self.clients:
+                client.close()
+            # Terminate process with exit code 1
+            sys.exit("Server was closed due to %s!" % socket.error)
 
-    def client_handler(self, sock, counter):
+    def client_handler(self, sock, client_id):
         """
-        Handles the client
+        Receives and handles data from the client.
+        If the socket runs into an error it is also removed from the client list.
+
         :param sock: Clients socket
-        :param counter: Clients ID
+        :param client_id: Clients ID
         """
         while 1:
             try:
-                data = sock.decrypt()
-                if data:
-                    # Client sends valid data
-                    if data.upper() == "QUIT":
-                        self.broadcast(sock, "client%s is now offline!" % counter)
-
-                        sock.close()
-                        self.clients.remove(sock)
-                        return
-                    else:
-                        self.broadcast(sock, data)
-
+                data = sock.recv(4096)
+                # Check if the client sends valid data or wants to quit
+                if not data or data.upper() == "QUIT":
+                    break
             except socket.error:
-                print("client%s is offline" % counter)
+                # Log error
+                print("Client%s ran into an error: %s" % (client_id, socket.error))
+                break
 
-                sock.close()
-                self.clients.remove(sock)
-                return
+        # Log disconnect
+        print("Client%s is offline" % client_id)
+        # Notify other sockets
+        self.broadcast(sock, "Client%s is offline!" % client_id)
+        # Close socket if not already closed
+        sock.close()
+        # Remove socket
+        self.clients.remove(sock)
 
-    def broadcast(self, sock, msg):
+    def broadcast(self, sock, data):
         """
-        Send broadcast message to all clients other than the server socket and the client socket from which the data
-        is received.
+        Broadcast data to all other clients
         """
-        for s in self.clients:
-            if s != self.server_socket and s != sock:
-                s.send(msg.encrypt())
-
-    def close(self):
-        """
-        Public method to close the server
-        """
-        self.server_socket.close()
+        for client_socket in self.clients:
+            # Exclude server and sending client
+            if client_socket is sock:
+                continue
+            # Send data
+            client_socket.send(data.encode())
 
 
 if __name__ == "__main__":
-    if sys.argv[1]:
-        if sys.argv[2]:
+    if len(sys.argv) > 1:
+        if len(sys.argv) > 2:
             Server(sys.argv[1], sys.argv[2])
         else:
             Server(sys.argv[1])

@@ -1,14 +1,8 @@
 import socket
+import sys
+import threading
 
-from encrypt import Base64, AES
-
-
-def encrypt(data):
-    return Base64(AES(data)).encrypt()
-
-
-def decrypt(data):
-    return Base64(AES(data)).decrypt()
+from crypt import Base64, AES, Encrypt
 
 
 class Client:
@@ -18,38 +12,73 @@ class Client:
         :param host: Host to connect to
         :param port: Port used to connect to the server
         """
+        # Define host and port
         self.HOST = host
         self.PORT = port
+        # Create client socket and connect to a server
+        self.__client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__client.connect((self.HOST, self.PORT))
+        # Set encryption method
+        self.CRYPT = Base64(  # Encrypt using Base64
+            AES(  # Encrypt using AES
+                Encrypt()  # Decorated Encrypt instance
+            )
+        )
+        # Helper variable to close threads if necessary
+        self.open = True
+        # Split data reception and input handling
+        thread_listen = threading.Thread(target=self.recv)
+        thread_speak = threading.Thread(target=self.send)
 
-        self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__client_socket.connect((self.HOST, self.PORT))
+        thread_listen.start()
+        thread_speak.start()
+        # Join threads before closing the process
+        thread_listen.join()
+        thread_speak.join()
 
-    def run(self):
-        """
-        Receives messages for eternity as long as the socket receives valid data
-        """
-        while 1:
+    def recv(self):
+        while self.open:
             try:
-                data = self.__client_socket.recv(4096)
-                if data:
-                    print(decrypt(data))
-                else:
+                data = self.__client.recv(4096).decode()
+                # Handle invalid data
+                if not data:
                     break
+                # Print data to stdout
+                print(self.CRYPT.decrypt(data))
+            # Handle socket errors
             except OSError as os_err:
-                print("RECEIVER >> Socket Error: %s" % os_err)
+                print("Error while listening: %s" % os_err)
                 break
+        # Close socket when not listening
+        self.__client.close()
 
-        self.__client_socket.close()
+    def send(self):
+        while self.open:
+            try:
+                data = input(">>> ")
+                # Allow clean exit
+                if data == "QUIT":
+                    self.close()
+                # Send encrypted data to the server
+                self.__client.send(self.CRYPT.encrypt(data)).encode()
+            # Handle socket errors
+            except OSError as os_err:
+                print("Error while speaking: %s" % os_err)
+                break
 
     def close(self):
         """
         Public method used to disconnect the client from the server
         """
-        self.__client_socket.send("QUIT".encode())
+        self.__client.send("QUIT".encode())
+        self.open = False
 
-    def send(self, data):
-        """
-        Public method used to send a message to the server
-        :param data: str
-        """
-        self.__client_socket.send(encrypt(data))
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        if len(sys.argv) > 2:
+            Client(sys.argv[1], sys.argv[2])
+        else:
+            Client(sys.argv[1])
+    else:
+        Client()
