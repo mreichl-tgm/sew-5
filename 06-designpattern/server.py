@@ -13,11 +13,11 @@ class Server:
         # Defining Host, Port and Client List
         self.HOST = host
         self.PORT = port
-        self.clients = []
+        self.__clients = []
         # Create server socket, bind it to HOST and PORT, start listening
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server.bind((self.HOST, self.PORT))
-        self.server.listen(10)
+        self.__server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__server.bind((self.HOST, self.PORT))
+        self.__server.listen(10)
         # Log success
         print("Server running on %s: %s)" % (self.HOST, self.PORT))
         # Count connected sockets to set ids
@@ -27,21 +27,19 @@ class Server:
             while 1:
                 print("Waiting...")
                 # Accept a client connection
-                (client_socket, address) = self.server.accept()
-                self.clients.append(client_socket)
+                (client_socket, address) = self.__server.accept()
+                self.__clients.append(client_socket)
                 # Start a new handler thread for each client
                 handler = threading.Thread(target=self.client_handler, args=(client_socket, counter))
                 handler.start()
                 # Log connected clients
                 print('Client connected at', address)
-                # Notify other clients
-                self.broadcast(client_socket, "Client%s is now online!" % counter)
                 # Increase counter
                 counter += 1
         # Except a socket error which results in a closed server
         except socket.error:
             # Close clients if possible
-            for client in self.clients:
+            for client in self.__clients:
                 client.close()
             # Terminate process with exit code 1
             sys.exit("Server was closed due to %s!" % socket.error)
@@ -58,8 +56,10 @@ class Server:
             try:
                 data = sock.recv(4096)
                 # Check if the client sends valid data or wants to quit
-                if not data or data.upper() == "QUIT":
+                if not data or data.decode().upper() == "QUIT":
                     break
+                # Broadcast valid data
+                self.broadcast(sock, data)
             except socket.error:
                 # Log error
                 print("Client%s ran into an error: %s" % (client_id, socket.error))
@@ -67,23 +67,21 @@ class Server:
 
         # Log disconnect
         print("Client%s is offline" % client_id)
-        # Notify other sockets
-        self.broadcast(sock, "Client%s is offline!" % client_id)
         # Close socket if not already closed
         sock.close()
         # Remove socket
-        self.clients.remove(sock)
+        self.__clients.remove(sock)
 
     def broadcast(self, sock, data):
         """
         Broadcast data to all other clients
         """
-        for client_socket in self.clients:
+        for client_socket in self.__clients:
             # Exclude server and sending client
             if client_socket is sock:
                 continue
             # Send data
-            client_socket.send(data.encode())
+            client_socket.send(data)
 
 
 if __name__ == "__main__":

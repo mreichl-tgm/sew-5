@@ -68,8 +68,8 @@ class Base64(EncryptDecorator):
         """
         return base64.b64encode(
             # Call decorated encrypt
-            self.decorated.encrypt(data.encode())
-        )
+            self.decorated.encrypt(data)
+        ).decode()
 
     def decrypt(self, data):
         """
@@ -79,13 +79,14 @@ class Base64(EncryptDecorator):
         :rtype: str
         :return: Result of the decorated instance
         """
+        print("AES decrypted %s to: %s\n" % (data, self.decorated.decrypt(data)))
         return base64.b64decode(
             # Call decorated decrypt
             self.decorated.decrypt(data)
-        ).decode()
+        )
 
 
-class AES(EncryptDecorator):
+class Caesar(EncryptDecorator):
     def __init__(self, wrapper: Encrypt):
         super().__init__(wrapper)
 
@@ -94,11 +95,13 @@ class AES(EncryptDecorator):
 
     @staticmethod
     def pad(s):
+        print("Pad %s to %s" % (s, s + (16 - len(s) % 16) * chr(16 - len(s) % 16)))
         return s + (16 - len(s) % 16) * chr(16 - len(s) % 16)
 
     @staticmethod
     def cut(s):
-        return s[0:-ord(s[-1])]
+        print("Cut %s to %s" % (s, s[0:-ord(s[-1])]))
+        return s[:-ord(s[len(s) - 1:])]
 
     def encrypt(self, data):
         """
@@ -120,6 +123,7 @@ class AES(EncryptDecorator):
         :rtype: str
         :return: Result of the decorated instance
         """
-        return self.SUITE.decrypt(self.cut(  # AES decrypt and cut
-            self.decorated.decrypt(data)  # Call decorated decrypt
+        print("Base64 decrypted %s to: %s\n" % (data, self.decorated.decrypt(data)))
+        return self.cut(self.SUITE.decrypt(  # AES decrypt and cut
+            self.decorated.decrypt(data)[16:]  # Call decorated decrypt
         ))

@@ -2,11 +2,11 @@ import socket
 import sys
 import threading
 
-from crypt import Base64, AES, Encrypt
+from crypt import Base64, Caesar, Encrypt
 
 
 class Client:
-    def __init__(self, host="localhost", port=5500):
+    def __init__(self, host="localhost", port=5500, debug=True):
         """
         A simple client connecting to a local server
         :param host: Host to connect to
@@ -15,68 +15,80 @@ class Client:
         # Define host and port
         self.HOST = host
         self.PORT = port
+        self.DEBUG = debug
         # Create client socket and connect to a server
         self.__client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__client.connect((self.HOST, self.PORT))
         # Set encryption method
         self.CRYPT = Base64(  # Encrypt using Base64
-            AES(  # Encrypt using AES
+            Caesar(  # Encrypt using AES
                 Encrypt()  # Decorated Encrypt instance
             )
         )
-        # Helper variable to close threads if necessary
-        self.open = True
+        # Use a nickname
+        self.nick = input("Enter a nickname: ")
         # Split data reception and input handling
         thread_listen = threading.Thread(target=self.recv)
         thread_speak = threading.Thread(target=self.send)
-
+        # Start reception
         thread_listen.start()
+        # Start speaking
         thread_speak.start()
         # Join threads before closing the process
         thread_listen.join()
         thread_speak.join()
+        # Notify user
+        print("Disconnected!")
 
     def recv(self):
-        while self.open:
+        while 1:
             try:
                 data = self.__client.recv(4096).decode()
                 # Handle invalid data
                 if not data:
                     break
-                # Print data to stdout
-                print(self.CRYPT.decrypt(data))
+                # Print data to stdout if in debug mode
+                if self.DEBUG:
+                    print("Got unencrypted data: %s\n>>> " % data)
+                    print("Decrypted first layer to: %s\n>>> " % self.CRYPT.decorated.decrypt(data))
+                    print("Decrypted data to: %s\n>>> " % self.CRYPT.decrypt(data))
             # Handle socket errors
             except OSError as os_err:
-                print("Error while listening: %s" % os_err)
+                # Log error in debug mode
+                if self.DEBUG:
+                    print("Error while listening: %s" % os_err)
+                # Break loop
                 break
         # Close socket when not listening
         self.__client.close()
 
     def send(self):
-        while self.open:
+        while 1:
             try:
-                data = input(">>> ")
+                data = input("\n>>> ")
                 # Allow clean exit
                 if data == "QUIT":
-                    self.close()
+                    self.__client.send("QUIT".encode())
+                    return
+                # Log encrypted message in debug mode
+                if self.DEBUG:
+                    print("Sending encrypted data: %s\n>>> " % self.CRYPT.encrypt(data))
+                # Build message
+                msg = self.nick + ": " + data
                 # Send encrypted data to the server
-                self.__client.send(self.CRYPT.encrypt(data)).encode()
+                self.__client.send(self.CRYPT.encrypt(msg).encode())
             # Handle socket errors
             except OSError as os_err:
-                print("Error while speaking: %s" % os_err)
+                if self.DEBUG:
+                    print("Error while speaking: %s" % os_err)
                 break
-
-    def close(self):
-        """
-        Public method used to disconnect the client from the server
-        """
-        self.__client.send("QUIT".encode())
-        self.open = False
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        if len(sys.argv) > 2:
+        if len(sys.argv) > 3:
+            Client(sys.argv[1], sys.argv[2], sys.argv[3])
+        elif len(sys.argv) > 2:
             Client(sys.argv[1], sys.argv[2])
         else:
             Client(sys.argv[1])
