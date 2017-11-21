@@ -67,8 +67,8 @@ class Base64(EncryptDecorator):
         # Call decorated encrypt
         msg = self.decorated.encrypt(data)
         return base64.b64encode(  # Encode base64
-            msg.encode("ASCII")  # Encode string
-        ).decode("ASCII")  # Decode string
+            msg.encode("utf-8")  # Encode string
+        ).decode("utf-8")  # Decode string
 
     def decrypt(self, data):
         """
@@ -83,18 +83,17 @@ class Base64(EncryptDecorator):
 
         print("Base64 decrypt: " + msg)
         return base64.b64decode(  # Decode base64
-            msg.encode("ASCII")  # Encode string
-        ).decode("ASCII")  # Decode string
+            msg
+        ).decode("utf-8")  # Decode string
 
 
-class Caesar(EncryptDecorator):
+class Base85(EncryptDecorator):
     def __init__(self, wrapper: Encrypt):
         super().__init__(wrapper)
-        self.key = "secret"
 
     def encrypt(self, data):
         """
-        Encrypts a string using caesar encryption
+        Encodes a string using base85
 
         :param data: str
         :rtype: str
@@ -102,30 +101,24 @@ class Caesar(EncryptDecorator):
         """
         # Call decorated encrypt
         msg = self.decorated.encrypt(data)
-        print("Caesar encrypt: " + str(msg))
-        encrypted = []
-        for i, char in enumerate(msg):
-            key_char = ord(self.key[i % len(self.key)])
-            msg_char = ord(char)
-            encrypted.append(chr((msg_char + key_char) % 127))
 
-        return ''.join(encrypted)
+        print("Base85 encrypt: " + msg)
+        return base64.b85encode(  # Encode base85
+            msg.encode("utf-8")  # Encode string
+        ).decode("utf-8")  # Decode string
 
     def decrypt(self, data):
         """
-        Decrypts a string using caesar decryption
+        Decodes a string using base85
 
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
-        # Call decorated encrypt
+        # Call decorated decrypt
         msg = self.decorated.decrypt(data)
-        print("Caesar decrypt: " + str(msg))
-        decrypted = []
-        for i, char in enumerate(msg):
-            key_char = ord(self.key[i % len(self.key)])
-            enc_char = ord(char)
-            decrypted.append(chr((enc_char - key_char) % 127))
 
-        return ''.join(decrypted)
+        print("Base85 decrypt: " + msg)
+        return base64.b85decode(  # Decode base85
+            msg
+        ).decode("utf-8")  # Decode string

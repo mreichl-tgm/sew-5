@@ -2,7 +2,7 @@ import socket
 import sys
 import threading
 
-from crypt import Base64, Caesar, Encrypt
+from crypt import Base64, Base85, Encrypt
 
 
 class Client:
@@ -21,7 +21,7 @@ class Client:
         self.__client.connect((self.HOST, self.PORT))
         # Set encryption method
         self.CRYPT = Base64(  # Encrypt using Base64
-            Caesar(  # Encrypt using Caesar
+            Base85(  # Encrypt using Caesar
                 Encrypt()  # Decorated Encrypt instance
             )
         )
