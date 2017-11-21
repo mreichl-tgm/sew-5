@@ -1,7 +1,5 @@
 import base64
 
-from Crypto.Cipher.AES import new, MODE_ECB
-
 
 class Encrypt:
     def encrypt(self, data):
@@ -66,10 +64,11 @@ class Base64(EncryptDecorator):
         :rtype: str
         :return: Result of the decorated instance
         """
-        return base64.b64encode(
-            # Call decorated encrypt
-            self.decorated.encrypt(data)
-        ).decode()
+        # Call decorated encrypt
+        msg = self.decorated.encrypt(data)
+        return base64.b64encode(  # Encode base64
+            msg.encode("ASCII")  # Encode string
+        ).decode("ASCII")  # Decode string
 
     def decrypt(self, data):
         """
@@ -79,51 +78,54 @@ class Base64(EncryptDecorator):
         :rtype: str
         :return: Result of the decorated instance
         """
-        print("AES decrypted %s to: %s\n" % (data, self.decorated.decrypt(data)))
-        return base64.b64decode(
-            # Call decorated decrypt
-            self.decorated.decrypt(data)
-        )
+        # Call decorated decrypt
+        msg = self.decorated.decrypt(data)
+
+        print("Base64 decrypt: " + msg)
+        return base64.b64decode(  # Decode base64
+            msg.encode("ASCII")  # Encode string
+        ).decode("ASCII")  # Decode string
 
 
 class Caesar(EncryptDecorator):
     def __init__(self, wrapper: Encrypt):
         super().__init__(wrapper)
-
-        self.SUITE = new('some default key', MODE_ECB)
-        self.bs = 16
-
-    @staticmethod
-    def pad(s):
-        print("Pad %s to %s" % (s, s + (16 - len(s) % 16) * chr(16 - len(s) % 16)))
-        return s + (16 - len(s) % 16) * chr(16 - len(s) % 16)
-
-    @staticmethod
-    def cut(s):
-        print("Cut %s to %s" % (s, s[0:-ord(s[-1])]))
-        return s[:-ord(s[len(s) - 1:])]
+        self.key = "secret"
 
     def encrypt(self, data):
         """
-        Encrypts a string using AES
+        Encrypts a string using caesar encryption
 
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
-        return self.SUITE.encrypt(self.pad(  # AES encrypt and add padding
-            self.decorated.encrypt(data)  # Call decorated encrypt
-        ))
+        # Call decorated encrypt
+        msg = self.decorated.encrypt(data)
+        print("Caesar encrypt: " + str(msg))
+        encrypted = []
+        for i, char in enumerate(msg):
+            key_char = ord(self.key[i % len(self.key)])
+            msg_char = ord(char)
+            encrypted.append(chr((msg_char + key_char) % 127))
+
+        return ''.join(encrypted)
 
     def decrypt(self, data):
         """
-        Decrypts a string using AES
+        Decrypts a string using caesar decryption
 
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
-        print("Base64 decrypted %s to: %s\n" % (data, self.decorated.decrypt(data)))
-        return self.cut(self.SUITE.decrypt(  # AES decrypt and cut
-            self.decorated.decrypt(data)[16:]  # Call decorated decrypt
-        ))
+        # Call decorated encrypt
+        msg = self.decorated.decrypt(data)
+        print("Caesar decrypt: " + str(msg))
+        decrypted = []
+        for i, char in enumerate(msg):
+            key_char = ord(self.key[i % len(self.key)])
+            enc_char = ord(char)
+            decrypted.append(chr((enc_char - key_char) % 127))
+
+        return ''.join(decrypted)

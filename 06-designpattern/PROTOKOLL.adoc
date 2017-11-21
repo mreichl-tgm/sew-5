@@ -1,4 +1,4 @@
-= A06: Design Patterns
+== A06: Design Patterns
 Markus Reichl <markus@re1.at>
 :revnumber: 1.0
 :revdate: 2017-11-17
@@ -7,17 +7,27 @@ Markus Reichl <markus@re1.at>
 
 Autor: {author}, Version: {revnumber}, {revdate}
 
-== Protokoll
-=== Vorbereitung
-1. Neues Projekt
-2. Einrichtung grundlegender Module (`__main__.py`, `client.py`, `encrypt.py`, `server.py`)
-3. Einrichtung grundlegender Klassen und Methoden (`Client`, `Èncrypt`, `EncryptBase64`, `EncryptAES`, `Server`)
-4. Vorbereitung des Decorator Pattern nach allgemeiner Definition (`EncryptDecorator`)
+=== Protokoll
+==== Vorbereitung
+. Neues Projekt
+. Einrichtung grundlegender Module (`__main__.py`, `client.py`, `encrypt.py`, `server.py`)
+. Einrichtung grundlegender Klassen und Methoden (`Client`, `Èncrypt`, `EncryptBase64`, `EncryptAES`, `Server`)
+. Vorbereitung des Decorator Pattern nach allgemeiner Definition (`EncryptDecorator`)
 
-=== Entwicklung
-1. Prototyp der Module client.py und server.py wurden auf Basis des Projekts https://github.com/mreichl-tgm/sew4/tree/master/06-pychat[06-pychat]
-2. Erweiterung der Module `client.py` und `server.py` um eigene `__main__` Methoden
+==== Entwicklung
+. Prototyp der Module client.py und server.py wurden auf Basis des Projekts https://github.com/mreichl-tgm/sew4/tree/master/06-pychat[06-pychat]
+. Erweiterung der Module `client.py` und `server.py` um eigene `__main__` Methoden
 [source,python]
 ----
+{{server|client}}.py
+if __name__ == "__main__":
+    if len(sys.argv) > 3:       # Debug Mode
+        Client(sys.argv[1], sys.argv[2], sys.argv[3])
+    elif len(sys.argv) > 2:     # Port
+        {{Server|Client}}(sys.argv[1], sys.argv[2])
+    elif len(sys.argv) > 1:     # Host
+        {{Server|Client}}(sys.argv[1])
+    else:
+        {{Server|Client}}()
 ----
-3. Implementation von Base64 und AES Verschlüsselungen anhand des Decorator Pattern
+. Implementation von Base64 und Caesar Verschlüsselungen anhand des Decorator Pattern

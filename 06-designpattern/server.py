@@ -58,6 +58,8 @@ class Server:
                 # Check if the client sends valid data or wants to quit
                 if not data or data.decode().upper() == "QUIT":
                     break
+                # Log data
+                print(data)
                 # Broadcast valid data
                 self.broadcast(sock, data)
             except socket.error:
@@ -86,9 +88,8 @@ class Server:
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        if len(sys.argv) > 2:
-            Server(sys.argv[1], sys.argv[2])
-        else:
-            Server(sys.argv[1])
+        Server(sys.argv[1])
+    elif len(sys.argv) > 2:
+        Server(sys.argv[1], sys.argv[2])
     else:
         Server()

@@ -21,7 +21,7 @@ class Client:
         self.__client.connect((self.HOST, self.PORT))
         # Set encryption method
         self.CRYPT = Base64(  # Encrypt using Base64
-            Caesar(  # Encrypt using AES
+            Caesar(  # Encrypt using Caesar
                 Encrypt()  # Decorated Encrypt instance
             )
         )
@@ -50,7 +50,6 @@ class Client:
                 # Print data to stdout if in debug mode
                 if self.DEBUG:
                     print("Got unencrypted data: %s\n>>> " % data)
-                    print("Decrypted first layer to: %s\n>>> " % self.CRYPT.decorated.decrypt(data))
                     print("Decrypted data to: %s\n>>> " % self.CRYPT.decrypt(data))
             # Handle socket errors
             except OSError as os_err:
@@ -72,6 +71,7 @@ class Client:
                     return
                 # Log encrypted message in debug mode
                 if self.DEBUG:
+                    print("Sending data: %s\n>>> " % data)
                     print("Sending encrypted data: %s\n>>> " % self.CRYPT.encrypt(data))
                 # Build message
                 msg = self.nick + ": " + data
@@ -85,12 +85,11 @@ class Client:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        if len(sys.argv) > 3:
-            Client(sys.argv[1], sys.argv[2], sys.argv[3])
-        elif len(sys.argv) > 2:
-            Client(sys.argv[1], sys.argv[2])
-        else:
-            Client(sys.argv[1])
+    if len(sys.argv) > 3:
+        Client(sys.argv[1], sys.argv[2], sys.argv[3])
+    elif len(sys.argv) > 2:
+        Client(sys.argv[1], sys.argv[2])
+    elif len(sys.argv) > 1:
+        Client(sys.argv[1])
     else:
         Client()
