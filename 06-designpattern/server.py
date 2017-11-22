@@ -1,9 +1,18 @@
+"""
+Socket server providing a communication interface for client sockets
+"""
+
+
 import socket
 import sys
 import threading
 
 
 class Server:
+    """
+    Socket server providing a communication interface for client sockets
+
+    """
     def __init__(self, host="localhost", port=5500):
         """
         A python Server using sockets
@@ -11,15 +20,15 @@ class Server:
         :param host: Host used for the server
         """
         # Defining Host, Port and Client List
-        self.HOST = host
-        self.PORT = port
+        self.host = host
+        self.port = port
         self.__clients = []
-        # Create server socket, bind it to HOST and PORT, start listening
+        # Create server socket, bind it to host and port, start listening
         self.__server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__server.bind((self.HOST, self.PORT))
+        self.__server.bind((self.host, self.port))
         self.__server.listen(10)
         # Log success
-        print("Server running on %s: %s)" % (self.HOST, self.PORT))
+        print("Server running on %s: %s)" % (self.host, self.port))
         # Count connected sockets to set ids
         counter = 0
         # Accept clients, add them to the client list and start a client_handler using their socket
@@ -30,7 +39,8 @@ class Server:
                 (client_socket, address) = self.__server.accept()
                 self.__clients.append(client_socket)
                 # Start a new handler thread for each client
-                handler = threading.Thread(target=self.client_handler, args=(client_socket, counter))
+                handler = threading.Thread(target=self.client_handler,
+                                           args=(client_socket, counter))
                 handler.start()
                 # Log connected clients
                 print('Client connected at', address)

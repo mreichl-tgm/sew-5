@@ -1,3 +1,8 @@
+"""
+Client used to communicate with other clients across a server
+"""
+
+
 import socket
 import sys
 import threading
@@ -6,6 +11,9 @@ from crypt import YetAnotherDraggyEncryption, Caesar, Encrypt
 
 
 class Client:
+    """
+    Client used to communicate with other clients across a server
+    """
     def __init__(self, host="localhost", port=5500, debug=True):
         """
         A simple client connecting to a local server
@@ -13,14 +21,14 @@ class Client:
         :param port: Port used to connect to the server
         """
         # Define host and port
-        self.HOST = host
-        self.PORT = port
-        self.DEBUG = debug
+        self.host = host
+        self.port = port
+        self.debug = debug
         # Create client socket and connect to a server
         self.__client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__client.connect((self.HOST, self.PORT))
+        self.__client.connect((self.host, self.port))
         # Set encryption method
-        self.CRYPT = YetAnotherDraggyEncryption(  # Encrypt using yet another draggy encryption
+        self.__crypt = YetAnotherDraggyEncryption(  # Encrypt using yet another draggy encryption
             Caesar(  # Encrypt using Caesar
                 Encrypt()  # Decorated Encrypt instance
             )
@@ -41,6 +49,11 @@ class Client:
         print("Disconnected!")
 
     def recv(self):
+        """
+        Receives messages while the socket is still open
+
+        :return: None
+        """
         while 1:
             try:
                 data = self.__client.recv(4096).decode()
@@ -48,13 +61,13 @@ class Client:
                 if not data:
                     break
                 # Print data to stdout if in debug mode
-                if self.DEBUG:
+                if self.debug:
                     print("Got unencrypted data: %s\n>>> " % data)
-                    print("Decrypted data to: %s\n>>> " % self.CRYPT.decrypt(data))
+                    print("Decrypted data to: %s\n>>> " % self.__crypt.decrypt(data))
             # Handle socket errors
             except OSError as os_err:
                 # Log error in debug mode
-                if self.DEBUG:
+                if self.debug:
                     print("Error while listening: %s" % os_err)
                 # Break loop
                 break
@@ -62,6 +75,11 @@ class Client:
         self.__client.close()
 
     def send(self):
+        """
+        Lets the user send messages while the server is still open
+
+        :return: None
+        """
         while 1:
             try:
                 data = input("\n>>> ")
@@ -70,16 +88,16 @@ class Client:
                     self.__client.send("QUIT".encode())
                     return
                 # Log encrypted message in debug mode
-                if self.DEBUG:
+                if self.debug:
                     print("Sending data: %s\n>>> " % data)
-                    print("Sending encrypted data: %s\n>>> " % self.CRYPT.encrypt(data))
+                    print("Sending encrypted data: %s\n>>> " % self.__crypt.encrypt(data))
                 # Build message
                 msg = self.nick + ": " + data
                 # Send encrypted data to the server
-                self.__client.send(self.CRYPT.encrypt(msg).encode())
+                self.__client.send(self.__crypt.encrypt(msg).encode())
             # Handle socket errors
             except OSError as os_err:
-                if self.DEBUG:
+                if self.debug:
                     print("Error while speaking: %s" % os_err)
                 break
 

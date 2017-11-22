@@ -64,9 +64,7 @@ class Caesar(EncryptDecorator):
     """
     Encrypts and decrypts a string using the caesar encryption algorithm :)
     """
-    def __init__(self, wrapper: Encrypt):
-        super().__init__(wrapper)
-        self.key = "secret"
+    KEY = "secret"
 
     def encrypt(self, data):
         """
@@ -80,7 +78,7 @@ class Caesar(EncryptDecorator):
         # Encrypt the message using caesar encryption
         encrypted = []
         for i, char in enumerate(msg):
-            key_char = ord(self.key[i % len(self.key)])
+            key_char = ord(self.KEY[i % len(self.KEY)])
             msg_char = ord(char)
             encrypted.append(chr((msg_char + key_char) % 127))
         # Return the result
@@ -96,7 +94,7 @@ class Caesar(EncryptDecorator):
         # Decrypt using caesar encryption
         decrypted = []
         for i, char in enumerate(data):
-            key_char = ord(self.key[i % len(self.key)])
+            key_char = ord(self.KEY[i % len(self.KEY)])
             enc_char = ord(char)
             decrypted.append(chr((enc_char - key_char) % 127))
 
@@ -107,11 +105,8 @@ class Caesar(EncryptDecorator):
 
 class YetAnotherDraggyEncryption(EncryptDecorator):
     """
-    Encryps and decrypts a string using yet another draggy encryption algorithm
+    Encrypts and decrypts a string using yet another draggy encryption algorithm
     """
-    def __init__(self, wrapper: Encrypt):
-        super().__init__(wrapper)
-
     def encrypt(self, data):
         """
         Encrypts a string using caesar encryption
