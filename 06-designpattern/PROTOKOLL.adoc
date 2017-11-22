@@ -11,12 +11,14 @@ Autor: {author}, Version: {revnumber}, {revdate}
 ==== Vorbereitung
 . Neues Projekt
 . Einrichtung grundlegender Module (`__main__.py`, `client.py`, `encrypt.py`, `server.py`)
-. Einrichtung grundlegender Klassen und Methoden (`Client`, `Èncrypt`, `EncryptBase64`, `EncryptAES`, `Server`)
+. Einrichtung grundlegender Klassen und Methoden (`Client`, `Èncrypt`, `Server`)
 . Vorbereitung des Decorator Pattern nach allgemeiner Definition (`EncryptDecorator`)
 
 ==== Entwicklung
+===== Socket Chat
 . Prototyp der Module client.py und server.py wurden auf Basis des Projekts https://github.com/mreichl-tgm/sew4/tree/master/06-pychat[06-pychat]
 . Erweiterung der Module `client.py` und `server.py` um eigene `__main__` Methoden
+
 [source,python]
 ----
 {{server|client}}.py
@@ -30,4 +32,16 @@ if __name__ == "__main__":
     else:
         {{Server|Client}}()
 ----
-. Implementation von Base64 und Caesar Verschlüsselungen anhand des Decorator Pattern
+
+===== Decorator Pattern
+. Implementierung von Caesar und YetAnotherDraggyEncryption Verschlüsselungen anhand des Decorator Pattern.
+. Einbinden der Dekoratoren in den Client
+[source,python]
+----
+# Set encryption method
+self.CRYPT = YetAnotherDraggyEncryption(    # Encrypt using yet another draggy encryption
+    Caesar(                                 # Encrypt using Caesar
+        Encrypt()                           # Decorated Encrypt instance
+    )
+)
+----
