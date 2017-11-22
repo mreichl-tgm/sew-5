@@ -2,7 +2,7 @@ import socket
 import sys
 import threading
 
-from crypt import Base64, Base85, Encrypt
+from crypt import YetAnotherDraggyEncryption, Caesar, Encrypt
 
 
 class Client:
@@ -20,8 +20,8 @@ class Client:
         self.__client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__client.connect((self.HOST, self.PORT))
         # Set encryption method
-        self.CRYPT = Base64(  # Encrypt using Base64
-            Base85(  # Encrypt using Caesar
+        self.CRYPT = YetAnotherDraggyEncryption(  # Encrypt using yet another draggy encryption
+            Caesar(  # Encrypt using Caesar
                 Encrypt()  # Decorated Encrypt instance
             )
         )

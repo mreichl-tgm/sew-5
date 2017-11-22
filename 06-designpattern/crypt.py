@@ -1,6 +1,3 @@
-import base64
-
-
 class Encrypt:
     def encrypt(self, data):
         """
@@ -52,73 +49,80 @@ class EncryptDecorator(Encrypt):
         return self.decorated.decrypt(data)
 
 
-class Base64(EncryptDecorator):
+class Caesar(EncryptDecorator):
     def __init__(self, wrapper: Encrypt):
         super().__init__(wrapper)
+        self.key = "secret"
 
     def encrypt(self, data):
         """
-        Encodes a string using base64
-
+        Encrypts a string using caesar encryption
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
         # Call decorated encrypt
         msg = self.decorated.encrypt(data)
-        return base64.b64encode(  # Encode base64
-            msg.encode("utf-8")  # Encode string
-        ).decode("utf-8")  # Decode string
+        print("Caesar encrypt: " + msg)
+        encrypted = []
+        for i, char in enumerate(msg):
+            key_char = ord(self.key[i % len(self.key)])
+            msg_char = ord(char)
+            encrypted.append(chr((msg_char + key_char) % 127))
+
+        return ''.join(encrypted)
 
     def decrypt(self, data):
         """
-        Decodes a string using base64
-
+        Decrypts a string using caesar decryption
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
-        # Call decorated decrypt
+        # Call decorated encrypt
         msg = self.decorated.decrypt(data)
+        print("Caesar decrypt: " + msg)
+        decrypted = []
+        for i, char in enumerate(msg):
+            key_char = ord(self.key[i % len(self.key)])
+            enc_char = ord(char)
+            decrypted.append(chr((enc_char - key_char) % 127))
 
-        print("Base64 decrypt: " + msg)
-        return base64.b64decode(  # Decode base64
-            msg
-        ).decode("utf-8")  # Decode string
+        return ''.join(decrypted)
 
 
-class Base85(EncryptDecorator):
+class YetAnotherDraggyEncryption(EncryptDecorator):
     def __init__(self, wrapper: Encrypt):
         super().__init__(wrapper)
 
     def encrypt(self, data):
         """
-        Encodes a string using base85
-
+        Encrypts a string using caesar encryption
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
         # Call decorated encrypt
         msg = self.decorated.encrypt(data)
+        print("Draggy encrypt: " + msg)
+        encrypted = []
+        for char in msg:
+            encrypted += chr(int(str(ord(char))[::-1]))
 
-        print("Base85 encrypt: " + msg)
-        return base64.b85encode(  # Encode base85
-            msg.encode("utf-8")  # Encode string
-        ).decode("utf-8")  # Decode string
+        return ''.join(encrypted)
 
     def decrypt(self, data):
         """
-        Decodes a string using base85
-
+        Decrypts a string using caesar decryption
         :param data: str
         :rtype: str
         :return: Result of the decorated instance
         """
-        # Call decorated decrypt
+        # Call decorated encrypt
         msg = self.decorated.decrypt(data)
+        print("Draggy decrypt: " + msg)
+        decrypted = []
+        for char in msg:
+            decrypted += chr(int(str(ord(char))[::-1]))
 
-        print("Base85 decrypt: " + msg)
-        return base64.b85decode(  # Decode base85
-            msg
-        ).decode("utf-8")  # Decode string
+        return ''.join(decrypted)
