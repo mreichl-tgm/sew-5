@@ -80,15 +80,16 @@ class Caesar(EncryptDecorator):
         :return: Result of the decorated instance
         """
         # Call decorated encrypt
-        msg = self.decorated.decrypt(data)
-        print("Caesar decrypt: " + msg)
+        print("Caesar decrypt: " + data)
         decrypted = []
-        for i, char in enumerate(msg):
+        for i, char in enumerate(data):
             key_char = ord(self.key[i % len(self.key)])
             enc_char = ord(char)
             decrypted.append(chr((enc_char - key_char) % 127))
 
-        return ''.join(decrypted)
+        msg = ''.join(decrypted)
+
+        return self.decorated.decrypt(msg)
 
 
 class YetAnotherDraggyEncryption(EncryptDecorator):
@@ -119,10 +120,11 @@ class YetAnotherDraggyEncryption(EncryptDecorator):
         :return: Result of the decorated instance
         """
         # Call decorated encrypt
-        msg = self.decorated.decrypt(data)
-        print("Draggy decrypt: " + msg)
+        print("Draggy decrypt: " + data)
         decrypted = []
-        for char in msg:
+        for char in data:
             decrypted += chr(int(str(ord(char))[::-1]))
 
-        return ''.join(decrypted)
+        msg = ''.join(decrypted)
+
+        return self.decorated.decrypt(msg)
