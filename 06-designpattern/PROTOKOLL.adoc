@@ -1,4 +1,4 @@
-== A06: Design Patterns
+= A06: Design Patterns
 Markus Reichl <markus@re1.at>
 :revnumber: 1.0
 :revdate: 2017-11-17
