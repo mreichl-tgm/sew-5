@@ -39,9 +39,19 @@ if __name__ == "__main__":
 [source,python]
 ----
 # Set encryption method
-self.CRYPT = YetAnotherDraggyEncryption(    # Encrypt using yet another draggy encryption
+self.__crypt = YetAnotherDraggyEncryption(  # Encrypt using yet another draggy encryption
     Caesar(                                 # Encrypt using Caesar
         Encrypt()                           # Decorated Encrypt instance
     )
 )
 ----
+
+[source,python]
+----
+# Encrypt
+self.__client.send(self.__crypt.encrypt("Message").encode())
+# Decrypt
+self.__crypt.decrypt(self.__client.recv(4096).decode())
+----
+
+Die Client Kommunikation wird nun verschlüsselt durchgeführt, wovon der Server jedoch nicht mitbekommt. :)
