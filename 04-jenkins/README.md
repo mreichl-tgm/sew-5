@@ -1,1 +1,0 @@
-Zu finden unter https://github.com/mreichl-tgm/sew5-jenkins.
