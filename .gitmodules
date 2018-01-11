@@ -1,3 +1,6 @@
 [submodule "04-jenkins"]
 	path = 04-jenkins
 	url = git@github.com:mreichl-tgm/sew-5-jenkins.git
+[submodule "07-flask"]
+	path = 07-flask
+	url = git@github.com:mreichl-tgm/sew-5-flask.git
