@@ -54,4 +54,4 @@ self.__client.send(self.__crypt.encrypt("Message").encode())
 self.__crypt.decrypt(self.__client.recv(4096).decode())
 ----
 
-Die Client Kommunikation wird nun verschlüsselt durchgeführt, wovon der Server jedoch nicht mitbekommt. :)
+Die Client Kommunikation wird nun verschlüsselt durchgeführt, wovon der Server jedoch nichts mitbekommt. :)
