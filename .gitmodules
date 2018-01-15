@@ -3,4 +3,4 @@
 	url = git@github.com:mreichl-tgm/sew-5-jenkins.git
 [submodule "07-flask"]
 	path = 07-flask
-	url = git@github.com:mreichl-tgm/sew-5-flask.git
+	url = git@github.com:re1/flare.git
