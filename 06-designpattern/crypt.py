@@ -1,5 +1,8 @@
 """
-Provides classes to encrypt and decrypt a string using the decorator pattern
+Provides classes to encrypt and decrypt a string using the decorator pattern.
+
+Using ABC classes for this purpose is still discouraged. See:
+https://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python
 """
 from abc import ABC, abstractmethod
 
