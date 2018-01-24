@@ -1,9 +1,38 @@
 """
 Provides classes to encrypt and decrypt a string using the decorator pattern
 """
+from abc import ABC, abstractmethod
 
 
-class Encrypt:
+class AbstractEncrypt(ABC):
+    """
+    Base class for encrypting strings with encrypt decorators
+    """
+
+    @abstractmethod
+    def encrypt(self, data):
+        """
+        Default encrypt method
+
+        :param data: str
+        :rtype: str
+        :return: data
+        """
+        return data
+
+    @abstractmethod
+    def decrypt(self, data):
+        """
+        Default decrypt method
+
+        :param data: str
+        :rtype: str
+        :return: data
+        """
+        return data
+
+
+class ConcreteEncrypt:
     """
     Base class for encrypting strings with encrypt decorators
     """
@@ -28,11 +57,12 @@ class Encrypt:
         return data
 
 
-class EncryptDecorator(Encrypt):
+class AbstractEncryptDecorator(ABC, ConcreteEncrypt):
     """
     Base class for all encrypt decorators
     """
-    def __init__(self, decorated: Encrypt):
+
+    def __init__(self, decorated: ConcreteEncrypt):
         """
         Takes an Encrypt instance and decorates it
         :param decorated: Instance to decorate
@@ -60,7 +90,7 @@ class EncryptDecorator(Encrypt):
         return self.decorated.decrypt(data)
 
 
-class Caesar(EncryptDecorator):
+class CaesarEncryptDecorator(AbstractEncryptDecorator):
     """
     Encrypts and decrypts a string using the caesar encryption algorithm :)
     """
@@ -103,7 +133,7 @@ class Caesar(EncryptDecorator):
         return self.decorated.decrypt(msg)
 
 
-class YetAnotherDraggyEncryption(EncryptDecorator):
+class YADEEncryptDecorator(AbstractEncryptDecorator):
     """
     Encrypts and decrypts a string using yet another draggy encryption algorithm
     """
@@ -119,7 +149,7 @@ class YetAnotherDraggyEncryption(EncryptDecorator):
         # Decrypt using yet another draggy encryption
         encrypted = []
         for char in msg:
-            encrypted += chr(int(str(ord(char))[::-1]))
+            encrypted += chr(1114111 - int(str(ord(char))))
 
         return ''.join(encrypted)
 
@@ -133,7 +163,7 @@ class YetAnotherDraggyEncryption(EncryptDecorator):
         # Decrypt using yet another draggy encryption
         decrypted = []
         for char in data:
-            decrypted += chr(int(str(ord(char))[::-1]))
+            decrypted += chr(abs(int(str(ord(char) - 1114111))))
 
         msg = ''.join(decrypted)
         # Return decorated decrypt

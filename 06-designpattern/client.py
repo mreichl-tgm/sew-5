@@ -7,7 +7,7 @@ import socket
 import sys
 import threading
 
-from crypt import YetAnotherDraggyEncryption, Caesar, Encrypt
+from crypt import YADEEncryptDecorator, CaesarEncryptDecorator, ConcreteEncrypt
 
 
 class Client:
@@ -28,9 +28,9 @@ class Client:
         self.__client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__client.connect((self.host, self.port))
         # Set encryption method
-        self.__crypt = YetAnotherDraggyEncryption(  # Encrypt using yet another draggy encryption
-            Caesar(  # Encrypt using Caesar
-                Encrypt()  # Decorated Encrypt instance
+        self.__crypt = YADEEncryptDecorator(  # Encrypt using yet another draggy encryption
+            CaesarEncryptDecorator(  # Encrypt using Caesar
+                ConcreteEncrypt()  # Decorated Encrypt instance
             )
         )
         # Use a nickname

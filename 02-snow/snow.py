@@ -19,8 +19,8 @@ class Snowflake(threading.Thread):
 
     def run(self):
         # Check if event exists and block while it is not set
-        while self.e and not self.e.isSet():
-            pass
+        if self.e:
+            self.e.wait()
 
         while self.y < Snowflake.rows - 2:
             self.y += 1
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         snowflakes = sys.argv[1]
 
     for i in range(snowflakes):
-        snowflake = Snowflake(random.randint(0, Snowflake.cols - 1))
+        snowflake = Snowflake(random.randint(0, Snowflake.cols - 1), event)
         threads.append(snowflake)
     # Start display thread and make it a daemon
     display_thread = threading.Thread(target=display)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     for thread in threads:
         thread.start()
 
-    time.sleep(1)
+    time.sleep(2)
     event.set()
 
     for thread in threads:

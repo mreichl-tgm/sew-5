@@ -10,9 +10,9 @@ Autor: {author}, Version: {revnumber}, {revdate}
 === Protokoll
 ==== Vorbereitung
 . Neues Projekt
-. Einrichtung grundlegender Module (`__main__.py`, `client.py`, `encrypt.py`, `server.py`)
-. Einrichtung grundlegender Klassen und Methoden (`Client`, `Èncrypt`, `Server`)
-. Vorbereitung des Decorator Pattern nach allgemeiner Definition (`EncryptDecorator`)
+. Einrichtung grundlegender Module (`__main__.py`, `client.py`, `crypt.py`, `server.py`)
+. Einrichtung grundlegender Klassen und Methoden (`Client`, `AbstractÈncrypt`, `Server`)
+. Vorbereitung des Decorator Pattern nach allgemeiner Definition (`AbstractEncryptDecorator`)
 
 ==== Entwicklung
 ===== Socket Chat
@@ -34,14 +34,14 @@ if __name__ == "__main__":
 ----
 
 ===== Decorator Pattern
-. Implementierung von Caesar und YetAnotherDraggyEncryption Verschlüsselungen anhand des Decorator Pattern.
+. Implementierung von Caesar (`CeasarEncryptDecorator`) und YetAnotherDraggyEncryption `YADEEncryptDecorator`) Verschlüsselungen anhand des Decorator Pattern.
 . Einbinden der Dekoratoren in den Client
 [source,python]
 ----
 # Set encryption method
-self.__crypt = YetAnotherDraggyEncryption(  # Encrypt using yet another draggy encryption
-    Caesar(                                 # Encrypt using Caesar
-        Encrypt()                           # Decorated Encrypt instance
+self.__crypt = YADEEncryptDecorator(  		# Encrypt using yet another draggy encryption
+    CaesarEncryptDecorator(                 # Encrypt using Caesar
+        ConcreteEncrypt()                   # Decorated Encrypt instance
     )
 )
 ----
@@ -54,4 +54,4 @@ self.__client.send(self.__crypt.encrypt("Message").encode())
 self.__crypt.decrypt(self.__client.recv(4096).decode())
 ----
 
-Die Client Kommunikation wird nun verschlüsselt durchgeführt, wovon der Server jedoch nicht mitbekommt. :)
+Die Client Kommunikation wird nun verschlüsselt durchgeführt, wovon der Server nichts mitbekommt. :)
