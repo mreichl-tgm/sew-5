@@ -35,7 +35,7 @@ class AbstractEncrypt(ABC):
         return data
 
 
-class ConcreteEncrypt:
+class ConcreteEncrypt(AbstractEncrypt):
     """
     Base class for encrypting strings with encrypt decorators
     """
@@ -60,12 +60,12 @@ class ConcreteEncrypt:
         return data
 
 
-class AbstractEncryptDecorator(ABC, ConcreteEncrypt):
+class AbstractEncryptDecorator(AbstractEncrypt):
     """
     Base class for all encrypt decorators
     """
 
-    def __init__(self, decorated: ConcreteEncrypt):
+    def __init__(self, decorated: AbstractEncrypt):
         """
         Takes an Encrypt instance and decorates it
         :param decorated: Instance to decorate

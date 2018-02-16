@@ -118,3 +118,7 @@ hs_err_pid*
 
 make.bat
 Makefile
+
+# Rendered markup
+README.html
+PROTOKOLL.html
