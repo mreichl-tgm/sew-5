@@ -26,7 +26,7 @@ class CalculatorServer(port: Int) {
 }
 
 class CalculatorClientHandler(private var socket: Socket,
-                              private var credits: Int = 10) : Thread() {
+                              private var credits: Int = 5) : Thread() {
     override fun run() {
         try {
             val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
@@ -42,7 +42,9 @@ class CalculatorClientHandler(private var socket: Socket,
                 println("Client: " + inputLine)
 
                 try {
+                    // TODO: Exit command for clients
                     if (inputLine.contains("!buy")) {
+                        // TODO: No negative credits
                         credits += inputLine
                                 .substringAfter("!buy ")
                                 .split(" ", ",")

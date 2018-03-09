@@ -9,10 +9,10 @@ package main.kotlin
 @Throws(NumberFormatException::class)
 fun process(input: String): Any? {
     when {
-        input.contains("!add") -> return add(input)
-        input.contains("!sub") -> return sub(input)
+        input.contains("!add")  -> return add(input)
+        input.contains("!sub")  -> return sub(input)
         input.contains("!help") ->
-            return "[!add] Sum up given numbers, " +
+            return  "[!add] Sum up given numbers, " +
                     "[!sub] Subtract given numbers from the first element, " +
                     "[!buy] Buy given number of credits, " +
                     "[!help] Shows this help"
