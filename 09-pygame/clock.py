@@ -27,6 +27,9 @@ class Clock:
     time_mode = 0  # 0: Second, 1: Microsecond
 
     def __init__(self):
+        """
+        Create a new clock instance, initialize pygame and start the game loop
+        """
         pygame.init()  # Init PyGame libraries
         pygame.display.set_caption(self.caption)
 
@@ -75,6 +78,9 @@ class Clock:
         sys.exit()
 
     def draw_analog(self):
+        """
+        Draw the analog clock
+        """
         # Get display size
         width, height = pygame.display.get_surface().get_size()
         center = (int(width * .5), int(height * .5))
