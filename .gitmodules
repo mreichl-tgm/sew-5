@@ -4,3 +4,9 @@
 [submodule "07-flask"]
 	path = 07-flask
 	url = git@github.com:re1/flare.git
+[submodule "09-pygame/sew-5-draughts-server"]
+	path = 09-pygame/sew-5-draughts-server
+	url = git@github.com:mreichl-tgm/sew-5-draughts-server.git
+[submodule "11-draughts-server"]
+	path = 11-draughts-server
+	url = git@github.com:mreichl-tgm/sew-5-draughts-server.git
