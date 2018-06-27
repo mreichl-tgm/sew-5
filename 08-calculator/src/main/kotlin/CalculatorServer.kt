@@ -13,7 +13,7 @@ class CalculatorServer(port: Int) {
         try {
             val serverSocket = ServerSocket(port)
             // Log success
-            println("Server running on 127.0.0.1:" + port)
+            println("Server running on 127.0.0.1:$port")
             // Listen for client connections
             while (!serverSocket.isClosed) {
                 CalculatorClientHandler(serverSocket.accept()).start()
@@ -39,7 +39,7 @@ class CalculatorClientHandler(private var socket: Socket,
                 // Check if connection shall be closed
                 if (inputLine == null || inputLine.contains("!exit")) break
 
-                println("Client: " + inputLine)
+                println("Client: $inputLine")
 
                 try {
                     // TODO: Exit command for clients
@@ -50,7 +50,7 @@ class CalculatorClientHandler(private var socket: Socket,
                                 .split(" ", ",")
                                 .map { it.toInt() }.sum()
 
-                        writer.println("Credits: " + credits)
+                        writer.println("Credits: $credits")
                     } else {
                         if (inputLine.contains("!add") || inputLine.contains("!sub"))
                             if (credits < 1) {
