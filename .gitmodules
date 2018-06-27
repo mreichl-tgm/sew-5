@@ -7,6 +7,3 @@
 [submodule "09-pygame/sew-5-draughts-server"]
 	path = 09-pygame/sew-5-draughts-server
 	url = git@github.com:mreichl-tgm/sew-5-draughts-server.git
-[submodule "11-draughts-server"]
-	path = 11-draughts-server
-	url = git@github.com:mreichl-tgm/sew-5-draughts-server.git
